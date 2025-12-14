@@ -1,0 +1,8 @@
+# Python caches
+.pytest_cache/
+
+# Virtual environment
+venv/
+
+# Tests (if you truly don't want them tracked)
+tests/
