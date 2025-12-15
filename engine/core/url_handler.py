@@ -1,4 +1,3 @@
-import re
 from urllib.parse import urlparse
 
 def is_url(text: str) -> bool:
@@ -6,17 +5,17 @@ def is_url(text: str) -> bool:
         if not text.startswith(('http://', 'https://')):
             return False
         
-        result  = urlparse(text)
-
-        return all([result.scheme, result.netloc])
+        result = urlparse(text)
+        return bool(result.scheme and result.netloc)
     
     except Exception:
         return False
-    
+
 async def text_from_url(page, url: str) -> str:
     try:
         await page.goto(url, wait_until="domcontentloaded", timeout=30000)
         await page.wait_for_timeout(2000)
+        
         selectors = [
             'article',
             'main',
@@ -30,7 +29,6 @@ async def text_from_url(page, url: str) -> str:
 
         for selector in selectors:
             element = await page.query_selector(selector)
-
             if element:
                 text = await element.inner_text()
                 text = text.strip()
@@ -38,8 +36,7 @@ async def text_from_url(page, url: str) -> str:
                     return text
         
         body_text = await page.evaluate('document.body.innerText')
-        body_text = body_text.strip()
-        return body_text
+        return body_text.strip()
     
-    except Exception as e:
+    except Exception:
         return ""

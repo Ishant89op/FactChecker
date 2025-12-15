@@ -59,8 +59,7 @@ def all_sites() -> dict:
     return SITES
 
 def sites_for_country(country: str) -> dict | None:
-    country = country.upper()
-    return SITES.get(country)
+    return SITES.get(country.upper())
 
 def all_countries() -> list[str]:
     return list(SITES.keys())
