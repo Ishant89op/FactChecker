@@ -1,4 +1,5 @@
 import re
+from itertools import combinations
 
 STOP_WORDS = {
     'a', 'an', 'the', 'and', 'or', 'but', 'nor', 'yet', 'so',
@@ -14,7 +15,7 @@ STOP_WORDS = {
     'here', 'there', 'when', 'where', 'why', 'how', 'who', 'which', 'what'
 }
 
-def keywords(text: str, max_keywords: int = 50, min_length: int = 2) -> list:
+def extract_keywords(text: str, max_keywords: int = 50, min_length: int = 2) -> list:
     text_lower = text.lower()
     words = re.findall(r'\b[a-z0-9]+\b', text_lower)
     
@@ -32,3 +33,39 @@ def keywords(text: str, max_keywords: int = 50, min_length: int = 2) -> list:
                 break
     
     return result
+
+def extract_numbers(text: str) -> list[str]:
+    return re.findall(r'\b\d+(?:\.\d+)?\b', text)
+
+def create_phrases(keywords: list[str]) -> list[str]:
+    phrases = []
+
+    for r in (2, 3):
+        for combo in combinations(keywords, r):
+            phrases.append(" ".join(combo))
+
+    return phrases
+
+import re
+
+def phrase_matcher(snippet: str, phrases: list[str]) -> int:
+    text = snippet.lower()
+    count = 0
+
+    for phrase in phrases:
+        pattern = rf'\b{re.escape(phrase.lower())}\b'
+        if re.search(pattern, text):
+            count += 1
+
+    return count
+
+def number_matcher(snippet: str, numbers: list[str]) -> int:
+    text = snippet.lower()
+    count = 0
+
+    for num in numbers:
+        pattern = rf'\b{re.escape(num)}\b'
+        if re.search(pattern, text):
+            count += 1
+
+    return count

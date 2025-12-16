@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 from core.verifier import Verifier
+from core.verdict import verdict
 
 app = FastAPI()
 
@@ -24,9 +25,12 @@ class Response(BaseModel):
     success: bool
     country: str
     keywords: list[str]
+    numbers: list[str]
+    phrases: list[str]
     found_on: int
     total_checked: int
     results: dict
+    overall_verdict: str
     error: Optional[str] = None
 
 @app.get("/")
@@ -52,19 +56,29 @@ async def checker(req: Request):
                 success=False,
                 country=result.get("country", ""),
                 keywords=result.get("keywords", []),
+                numbers=result.get("numbers", []),
+                phrases=result.get("phrases", []),
                 found_on=result.get("found_on", 0),
                 total_checked=result.get("total_checked", 0),
                 results=result.get("results", {}),
+                overall_verdict=False,
                 error=result["error"]
             )
+
+        found_on = result["found_on"]
+        total_checked = result["total_checked"]
+        overall_verdict = verdict(found_on, total_checked)
 
         return Response(
             success=True,
             country=result["country"],
             keywords=result["keywords"],
+            numbers=result["numbers"],
+            phrases=result["phrases"],
             found_on=result["found_on"],
             total_checked=result["total_checked"],
             results=result["results"],
+            overall_verdict=overall_verdict,
             error=None
         )
     

@@ -2,7 +2,7 @@ from playwright.async_api import async_playwright
 from core.sites import GLOBAL, SITES
 from core.url_handler import is_url, text_from_url
 from core.country_detector import detect
-from core.keyword import keywords
+from core.extractor import extract_keywords, extract_numbers, create_phrases
 from core.checker import check_site
 
 class Verifier:
@@ -56,7 +56,9 @@ class Verifier:
                     news_text = text
                 
                 country = detect(news_text)
-                keyword_list = keywords(news_text)
+                keyword_list = extract_keywords(news_text)
+                numbers = extract_numbers(news_text)
+                phrases = create_phrases(keyword_list)
                 
                 print(f"Detected Country: {country}")
                 print(f"Keywords: {keyword_list[:10]}\n")
@@ -66,12 +68,15 @@ class Verifier:
                 print(f"Checking {len(sites_to_check)} sites...\n")
                 
                 results = {}
+                found_on = 0
                 for site_name, site_url in sites_to_check.items():
-                    result = await check_site(page, site_name, site_url, keyword_list)
+                    result = await check_site(page, site_name, site_url, keyword_list, numbers, phrases)
+                    verdict = result["verdict"]
+                    if verdict: 
+                        found_on += 1
                     results[site_name] = result
                     await page.wait_for_timeout(3000)
 
-                found_on = sum(1 for r in results.values() if r.get("found", False))
 
                 print(f"\n{'='*60}")
                 print(f"Verification complete: Found on {found_on}/{len(results)} sites")
@@ -79,7 +84,9 @@ class Verifier:
 
                 return {
                     "country": country,
-                    "keywords": keyword_list[:7],
+                    "keywords": keyword_list[:10],
+                    "numbers": numbers[:10],
+                    "phrases": phrases[:10],
                     "found_on": found_on,
                     "total_checked": len(results),
                     "results": results
