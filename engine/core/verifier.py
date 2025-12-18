@@ -1,4 +1,6 @@
+import asyncio
 from playwright.async_api import async_playwright
+from playwright_stealth import Stealth, ALL_EVASIONS_DISABLED_KWARGS
 from core.sites import GLOBAL, SITES
 from core.url_handler import is_url, text_from_url
 from core.country_detector import detect
@@ -42,25 +44,41 @@ class Verifier:
             all_sites.update(country_dict)
         return all_sites
 
-    async def verify(self, text: str) -> dict:
+    async def verify(self, text: str) -> VerifierResult:
         async with async_playwright() as p:
             browser = await p.chromium.launch(
                 headless=False,
                 args=[
-                    '--no-sandbox',
                     '--disable-blink-features=AutomationControlled',
-                    '--disable-web-security'
+                    '--disable-dev-shm-usage',
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                    '--disable-web-security',
+                    '--disable-features=IsolateOrigins,site-per-process',
+                    '--disable-site-isolation-trials',
+                    '--disable-infobars',
+                    '--window-size=1920,1080',
+                    '--start-maximized'
                 ]
             )
             
             context = await browser.new_context(
-                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
                 viewport={'width': 1920, 'height': 1080},
                 locale='en-US',
-                timezone_id='America/New_York'
+                timezone_id='America/New_York',
+                permissions=['geolocation'],
+                geolocation={'latitude': 40.7128, 'longitude': -74.0060},
+                color_scheme='light',
+                device_scale_factor=1,
+                has_touch=False,
+                is_mobile=False,
+                java_script_enabled=True
             )
-            
+
+            stealth = Stealth()
             page = await context.new_page()
+            await stealth.apply_stealth_async(page)
             
             await page.add_init_script("""
                 Object.defineProperty(navigator, 'webdriver', {get: () => undefined});

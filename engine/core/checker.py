@@ -41,7 +41,7 @@ async def check_site(page, site_name: str, site_url: str, keywords: list, number
         print(f"   Query: {google_query}")
 
         await page.goto(search_url, wait_until="networkidle", timeout=30000)
-        await page.wait_for_timeout(1000)
+        await page.wait(2000)
 
         page_content = await page.content()
         
