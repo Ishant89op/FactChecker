@@ -1,10 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
+from dataclasses import dataclass, field
 
 from core.verifier import Verifier
 from core.verdict import verdict
+from core.verifier import VerifierResult
 
 app = FastAPI()
 
@@ -18,19 +20,21 @@ app.add_middleware(
 
 verifier = Verifier()
 
+@dataclass
 class Request(BaseModel):
-    text: str
+    text: str = ""
 
-class Response(BaseModel):
-    success: bool
-    country: str
-    keywords: list[str]
-    numbers: list[str]
-    phrases: list[str]
-    found_on: int
-    total_checked: int
-    results: dict
-    overall_verdict: str
+@dataclass
+class Response:
+    success: bool = False
+    country: str = ""
+    keywords: List[str] = field(default_factory=list)
+    numbers: List[str] = field(default_factory=list)
+    phrases: List[str] = field(default_factory=list)
+    found_on: int = -1
+    total_checked: int = -1
+    results: Optional[VerifierResult] = None
+    overall_verdict: str = ""
     error: Optional[str] = None
 
 @app.get("/")
@@ -44,25 +48,15 @@ async def root():
 async def checker(req: Request):
     try:
         if not req.text or len(req.text.strip()) < 10:
-            raise HTTPException(
-                status_code=400,
-                detail="Text must be at least 10 characters"
+            return Response(
+                error = "Text must be at least 10 characters"
             )
         
-        result = await verifier.verify(req.text)
+        result: VerifierResult = await verifier.verify(req.text)
 
-        if "error" in result:
+        if result.error is not None:
             return Response(
-                success=False,
-                country=result.get("country", ""),
-                keywords=result.get("keywords", []),
-                numbers=result.get("numbers", []),
-                phrases=result.get("phrases", []),
-                found_on=result.get("found_on", 0),
-                total_checked=result.get("total_checked", 0),
-                results=result.get("results", {}),
-                overall_verdict=False,
-                error=result["error"]
+                error = result.error
             )
 
         found_on = result["found_on"]
@@ -71,26 +65,21 @@ async def checker(req: Request):
 
         return Response(
             success=True,
-            country=result["country"],
-            keywords=result["keywords"],
-            numbers=result["numbers"],
-            phrases=result["phrases"],
-            found_on=result["found_on"],
-            total_checked=result["total_checked"],
-            results=result["results"],
-            overall_verdict=overall_verdict,
-            error=None
+            country=result.country,
+            keywords=result.keywords,
+            numbers=result.numbers,
+            phrases=result.phrases,
+            found_on=result.found_on,
+            total_checked=result.total_checked,
+            results=result.results,
+            overall_verdict=overall_verdict
         )
     
     except HTTPException:
-        raise
+        return Response(
+            error = "HTTP Exception error"
+        )
     except Exception as e:
         return Response(
-            success=False,
-            country="",
-            keywords=[],
-            found_on=0,
-            total_checked=0,
-            results={},
             error=str(e)
         )

@@ -1,6 +1,33 @@
 from urllib.parse import urlparse, quote_plus
 import asyncio
 from core.extractor import phrase_matcher, number_matcher
+from typing import Optional
+from dataclasses import dataclass
+
+from typing import Optional
+
+@dataclass
+class Result:
+    def __init__(
+        self,
+        found: bool = False,
+        site: str = "",
+        url: str = "",
+        snippet: str = "",
+        numbers_matched: int = -1,
+        phrases_matched: int = -1,
+        verdict: bool = False,
+        error: Optional[str] = None
+    ):
+        self.found = found
+        self.site = site
+        self.url = url
+        self.snippet = snippet
+        self.numbers_matched = numbers_matched
+        self.phrases_matched = phrases_matched
+        self.verdict = verdict
+        self.error = error
+
 
 async def check_site(page, site_name: str, site_url: str, keywords: list, numbers: list, phrases: list) -> dict:
     try:
@@ -14,13 +41,15 @@ async def check_site(page, site_name: str, site_url: str, keywords: list, number
         print(f"   Query: {google_query}")
 
         await page.goto(search_url, wait_until="networkidle", timeout=30000)
-        await page.wait_for_timeout(2000)
+        await page.wait_for_timeout(1000)
 
         page_content = await page.content()
         
         if "unusual traffic" in page_content.lower() or "captcha" in page_content.lower():
             print(f"    CAPTCHA detected")
-            return {"found": False, "url": "", "snippet": "CAPTCHA blocked"}
+            return Result(
+                error = "CAPTCHA detected"
+            )
 
         no_results_selectors = [
             'text="did not match any documents"',
@@ -73,7 +102,7 @@ async def check_site(page, site_name: str, site_url: str, keywords: list, number
         numbers_matched = number_matcher(snippet_clean[:500], numbers)
         verdict: bool = False
 
-        if phrases_matched > 1:
+        if phrases_matched > 0:
             if len(numbers) > 0:
                 if numbers_matched > 0:
                     verdict = True
@@ -84,15 +113,18 @@ async def check_site(page, site_name: str, site_url: str, keywords: list, number
 
         print(f"   ✓ Found: {article_url[:60]}...")
 
-        return {
-            "found": True,
-            "url": article_url,
-            "snippet": snippet_clean[:300],
-            "numbers_matched": numbers_matched,
-            "phrases_matched": phrases_matched,
-            "verdict": verdict
-        }
+        return Result(
+            found = True,
+            site = site_name,
+            url = article_url,
+            snippet = snippet_clean,
+            numbers_matched = numbers_matched,
+            phrases_matched = phrases_matched,
+            verdict = verdict
+        )
 
     except Exception as e:
         print(f"    Error: {str(e)}")
-        return {"found": False, "url": "", "snippet": "", "error": str(e)}
+        return Result(
+            error = str(e)
+        )

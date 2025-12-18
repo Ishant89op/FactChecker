@@ -4,6 +4,32 @@ from core.url_handler import is_url, text_from_url
 from core.country_detector import detect
 from core.extractor import extract_keywords, extract_numbers, create_phrases
 from core.checker import check_site
+from dataclasses import dataclass
+from core.checker import Result
+from typing import Optional
+
+@dataclass
+class VerifierResult:
+    def __init__(
+            self,
+            country: str = "",
+            keywords: list[str] = [],
+            numbers: list[str] = [],
+            phrases: list[str] = [],
+            found_on: int = -1,
+            total_checked: int = -1,
+            results: list[Result] = [],
+            error: Optional[str] = None
+
+    ):
+        self.country = country
+        self.keywords = keywords
+        self.numbers = numbers
+        self.phrases = phrases
+        self.found_on = found_on
+        self.total_checked = total_checked
+        self.results = results
+        self.error = error
 
 class Verifier:
     def __init__(self):
@@ -67,14 +93,20 @@ class Verifier:
                 
                 print(f"Checking {len(sites_to_check)} sites...\n")
                 
-                results = {}
+                results = []
                 found_on = 0
                 for site_name, site_url in sites_to_check.items():
                     result = await check_site(page, site_name, site_url, keyword_list, numbers, phrases)
-                    verdict = result["verdict"]
+                    
+                    if result.error is not None:
+                        return VerifierResult(
+                            error = result.error
+                        )
+                    
+                    verdict = result.verdict
                     if verdict: 
                         found_on += 1
-                    results[site_name] = result
+                    results.append(result)
                     await page.wait_for_timeout(3000)
 
 
@@ -82,15 +114,15 @@ class Verifier:
                 print(f"Verification complete: Found on {found_on}/{len(results)} sites")
                 print(f"{'='*60}\n")
 
-                return {
-                    "country": country,
-                    "keywords": keyword_list[:10],
-                    "numbers": numbers[:10],
-                    "phrases": phrases[:10],
-                    "found_on": found_on,
-                    "total_checked": len(results),
-                    "results": results
-                }
+                return VerifierResult(
+                    country = country,
+                    keywords=keyword_list[:10],
+                    numbers=numbers[:10],
+                    phrases=phrases[:10],
+                    found_on=found_on,
+                    total_checked=len(results),
+                    results=results
+                )
         
             finally:
                 await context.close()
@@ -104,11 +136,6 @@ class Verifier:
         return {**country_dict, **self.global_sites}
     
     def _error_response(self, message: str) -> dict:
-        return {
-            "country": "",
-            "keywords": [],
-            "found_on": 0,
-            "total_checked": 0,
-            "results": {},
-            "error": message
-        }
+        return VerifierResult(
+            error = message
+        )

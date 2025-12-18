@@ -8,3 +8,6 @@ venv/
 
 # Tests (if you truly don't want them tracked)
 tests/
+
+#Intellij
+.idea
