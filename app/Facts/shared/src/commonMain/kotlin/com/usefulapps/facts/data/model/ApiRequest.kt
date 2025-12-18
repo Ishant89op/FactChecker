@@ -1,3 +1,8 @@
 package com.usefulapps.facts.data.model
 
-data class ApiRequest()
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ApiRequest(
+    val text: String
+)

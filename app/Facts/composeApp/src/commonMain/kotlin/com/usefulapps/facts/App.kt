@@ -14,7 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.usefulapps.facts.ui.screens.home.HomeScreen
-import com.usefulapps.facts.ui.screens.home.HomeViewModel
+import com.usefulapps.facts.viewmodel.HomeViewModel
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -24,5 +24,5 @@ import facts.composeapp.generated.resources.compose_multiplatform
 @Composable
 @Preview
 fun App() {
-    HomeScreen(viewModel = HomeViewModel())
+    HomeScreen()
 }

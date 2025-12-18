@@ -1,4 +1,22 @@
 package com.usefulapps.facts.domain.repository
 
-class CheckerRepository {
+import com.usefulapps.facts.data.remote.ApiService
+import com.usefulapps.facts.domain.model.VerifiedResult
+
+class CheckerRepository(
+    private val apiService: ApiService
+) {
+    suspend fun verifier(text: String): VerifiedResult {
+        println("Request reached Repository")
+        val response = apiService.runVerifierAPI(text)
+        println("Got Output from API")
+        return VerifiedResult(
+            success = response.success,
+            found_on = response.found_on,
+            total_checked = response.total_checked,
+            results = response.results,
+            overall_verdict = response.overall_verdict,
+            error = response.error
+        )
+    }
 }
