@@ -1,9 +1,10 @@
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
-from sites.financial_times import financial_times
+from core2.sites import financial_times
+from core2.model import Result
 import asyncio
 
-async def launcher(text: str) -> str:
+async def launcher(text: str) -> list[Result]:
     async with async_playwright() as p:
         browser = await p.chromium.launch(
             headless=False
@@ -20,12 +21,12 @@ async def launcher(text: str) -> str:
         page = await context.new_page()
         await stealth.apply_stealth_async(page)
 
-        await financial_times(page)
+        results: list[Result] = []
 
-        browser.close()
+        ft = "Financial Times"
+        ft_items = await financial_times(page, text)
+        results.append(Result(ft, ft_items))
 
-async def main():
-    await launcher("What is this?")
+        await browser.close()
 
-if __name__ == "__main__":
-    asyncio.run(main())
+        return results

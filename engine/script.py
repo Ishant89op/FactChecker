@@ -8,6 +8,8 @@ from core.verifier import Verifier
 from core.verdict import verdict
 from core.verifier import VerifierResult
 
+from core2.playwright_launcher import launcher
+
 app = FastAPI()
 
 app.add_middleware(
@@ -41,11 +43,13 @@ class Response:
 async def root():
     return {
         "status": "online",
-        "service": "Fact Checker API"    
+        "service": "Fact Checker API" ,
+        "google_search_M1": "This method searches on google. (/check_M1)",
+        "direct_site_search_M2": "This method individually searches the sites.(/check_M2)"
     }
 
-@app.post("/check", response_model=Response)
-async def checker(req: Request):
+@app.post("/check_M1", response_model=Response)
+async def google_search(req: Request):
     try:
         if not req.text or len(req.text.strip()) < 10:
             return Response(
@@ -74,6 +78,27 @@ async def checker(req: Request):
             results=result.results,
             overall_verdict=overall_verdict
         )
+    
+    except HTTPException:
+        return Response(
+            error = "HTTP Exception error"
+        )
+    except Exception as e:
+        return Response(
+            error=str(e)
+        )
+    
+@app.post("/check_M2")
+async def site_search(req: Request):
+    try:
+        if not req.text or len(req.text.strip()) < 10:
+            return Response(
+                error = "Text must be at least 10 characters"
+            )
+        
+        results = await launcher(req.text)
+
+        return results
     
     except HTTPException:
         return Response(
