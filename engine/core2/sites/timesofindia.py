@@ -1,8 +1,8 @@
-from model.result import Result
+from core2.model import Item
 
-async def financial_times(page, text: str = "inflation") -> Result:
-    site_name = "Financial Times"
-    site_url = "https://www.ft.com"
+async def times_of_india(page, text: str  = "inflation") -> list[Item]:
+    site_name = "The Times of India"
+    site_url = "https://timesofindia.indiatimes.com/"
 
     print(f"Checking {site_name}...")
 
@@ -48,26 +48,19 @@ async def financial_times(page, text: str = "inflation") -> Result:
     await page.wait_for_selector('ul.search-results__list li.search-results__list-item', timeout=10000)
     print(f"Selected Results List")
 
-    element = page.locator('a.js-teaser-heading-link').first
-    found = False
-    heading = (await element.text_content()).strip()
-    url = await element.get_attribute("href")
+    elements = page.locator('a.js-teaser-heading-link')
 
-    if(heading != None): 
-        found = True
-    
+    headings = await elements.all_text_contents()
+    urls = await elements.evaluate_all("els => els.map(e => e.href)")
+
+    print(f"Got all the headings and urls of the headings.")
+
+    items: list[Item] = [
+        Item(heading=h.strip(), url=u)
+        for h, u in zip(headings, urls)
+    ]
 
     # for i, item in enumerate(items, 1):
     #   print(f"{i:02}. {item.heading}\n    {item.url}\n")
-    if(found == True):
-        return Result(
-            found = found,
-            site = site_name,
-            url = url,
-            snippet = heading,
-            verdict = found
-        )
-    else:
-        return Result(
-            error = "Something happened, we couldn't get it! Sorry for the inconvinience."
-        )
+
+    return items

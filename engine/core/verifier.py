@@ -6,32 +6,9 @@ from core.url_handler import is_url, text_from_url
 from core.country_detector import detect
 from core.extractor import extract_keywords, extract_numbers, create_phrases
 from core.checker import check_site
-from dataclasses import dataclass
-from core.checker import Result
-from typing import Optional
 
-@dataclass
-class VerifierResult:
-    def __init__(
-            self,
-            country: str = "",
-            keywords: list[str] = [],
-            numbers: list[str] = [],
-            phrases: list[str] = [],
-            found_on: int = -1,
-            total_checked: int = -1,
-            results: list[Result] = [],
-            error: Optional[str] = None
+from model.verifier_result import VerifierResult
 
-    ):
-        self.country = country
-        self.keywords = keywords
-        self.numbers = numbers
-        self.phrases = phrases
-        self.found_on = found_on
-        self.total_checked = total_checked
-        self.results = results
-        self.error = error
 
 class Verifier:
     def __init__(self):

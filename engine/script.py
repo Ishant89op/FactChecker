@@ -8,6 +8,9 @@ from core.verifier import Verifier
 from core.verdict import verdict
 from core.verifier import VerifierResult
 
+from model.request import Request
+from model.response import Response
+
 from core2.playwright_launcher import launcher
 
 app = FastAPI()
@@ -21,23 +24,6 @@ app.add_middleware(
 )
 
 verifier = Verifier()
-
-@dataclass
-class Request(BaseModel):
-    text: str = ""
-
-@dataclass
-class Response:
-    success: bool = False
-    country: str = ""
-    keywords: List[str] = field(default_factory=list)
-    numbers: List[str] = field(default_factory=list)
-    phrases: List[str] = field(default_factory=list)
-    found_on: int = -1
-    total_checked: int = -1
-    results: Optional[VerifierResult] = None
-    overall_verdict: str = ""
-    error: Optional[str] = None
 
 @app.get("/")
 async def root():
@@ -89,16 +75,21 @@ async def google_search(req: Request):
         )
     
 @app.post("/check_M2")
-async def site_search(req: Request):
+async def site_search(req: Request, response_model=Response):
     try:
         if not req.text or len(req.text.strip()) < 10:
             return Response(
                 error = "Text must be at least 10 characters"
             )
         
-        results = await launcher(req.text)
+        result = await launcher(req.text)
 
-        return results
+        return Response(
+            success=True,
+            found_on=result.found_on,
+            total_checked=result.total_checked,
+            results=result.results
+        )
     
     except HTTPException:
         return Response(
