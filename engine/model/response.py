@@ -1,16 +1,15 @@
-from dataclasses import dataclass, field
-from typing import Optional, List
-from model.verifier_result import VerifierResult
+from pydantic import BaseModel
+from typing import List, Optional
+from model.result import Result
 
-@dataclass
-class Response:
+class Response(BaseModel):
     success: bool = False
     country: str = ""
-    keywords: List[str] = field(default_factory=list)
-    numbers: List[str] = field(default_factory=list)
-    phrases: List[str] = field(default_factory=list)
+    keywords: List[str] = []
+    numbers: List[str] = []
+    phrases: List[str] = []
     found_on: int = -1
     total_checked: int = -1
-    results: Optional[VerifierResult] = None
+    results: List[Result] = []
     overall_verdict: str = ""
     error: Optional[str] = None
