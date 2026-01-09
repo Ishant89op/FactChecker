@@ -74,15 +74,15 @@ async def google_search(req: Request):
             error=str(e)
         )
     
-@app.post("/check_M2")
-async def site_search(req: Request, response_model=Response):
+@app.post("/check_M2", response_model=Response)
+async def site_search(req: Request):
     try:
         if not req.text or len(req.text.strip()) < 10:
             return Response(
                 error = "Text must be at least 10 characters"
             )
         
-        result = await launcher(req.text)
+        result: VerifierResult = await launcher(req.text)
 
         return Response(
             success=True,

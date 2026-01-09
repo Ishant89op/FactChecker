@@ -1,13 +1,13 @@
-from core2.model import Item
+from model.result import Result
 
-async def times_of_india(page, text: str  = "inflation") -> list[Item]:
+async def times_of_india(page, text: str  = "inflation") -> Result:
     site_name = "The Times of India"
     site_url = "https://timesofindia.indiatimes.com/"
 
     print(f"Checking {site_name}...")
 
-    await page.goto(site_url, wait_until='networkidle', timeout=30000)
-
+    await page.goto(site_url, wait_until="domcontentloaded", timeout=30000)
+    await page.wait_for_timeout(5000)
     print(f"Page Loaded.")
 
     # if accept cookies come up, accept them
@@ -27,14 +27,14 @@ async def times_of_india(page, text: str  = "inflation") -> list[Item]:
 
     print(f"Trying to find the search button")
 
-    await page.get_by_role("button", name="Search").click()
+    await page.locator("span.OG1TB").click()
     print(f"Search Button Selected")
 
-    search = page.locator('#o-header-search-term-primary')
+    search = page.locator("#searchField")
     print(f"Found Search Input Field")
 
-    await search.click()
-    print(f"Search Field Selected")
+    # await search.click()
+    # print(f"Search Field Selected")
 
     await search.fill(text)
     print(f"Input Field Filled")
@@ -42,25 +42,33 @@ async def times_of_india(page, text: str  = "inflation") -> list[Item]:
     await page.keyboard.press('Enter')
     print(f"Pressed Enter")
 
-    await page.wait_for_timeout(2000)
-
     print(f"Selecting Results List")
-    await page.wait_for_selector('ul.search-results__list li.search-results__list-item', timeout=10000)
-    print(f"Selected Results List")
+    await page.wait_for_selector('div.tabs_common', timeout=10000)
+    print(f"Got the List")
 
-    elements = page.locator('a.js-teaser-heading-link')
+    # await page.wait_for_timeout(200000)
 
-    headings = await elements.all_text_contents()
-    urls = await elements.evaluate_all("els => els.map(e => e.href)")
+    print("Trying to get first entry")
 
-    print(f"Got all the headings and urls of the headings.")
+    await page.wait_for_selector("a[href*='articleshow']", state="attached")
 
-    items: list[Item] = [
-        Item(heading=h.strip(), url=u)
-        for h, u in zip(headings, urls)
-    ]
+    element = page.locator("a[href*='articleshow']").first
 
-    # for i, item in enumerate(items, 1):
-    #   print(f"{i:02}. {item.heading}\n    {item.url}\n")
+    url = await element.get_attribute("href")
+    heading = (await element.inner_text()).split("\n")[0]
+    print(f"Got the url and heading")
 
-    return items
+    found = True
+
+    if(found):
+        return Result(
+            found = found,
+            site = site_name,
+            url = url,
+            snippet = heading,
+            verdict = found
+        )
+    else:
+        return Result(
+            error = "Cannot fetch. Something happened!"
+        )

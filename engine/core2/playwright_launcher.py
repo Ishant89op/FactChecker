@@ -2,8 +2,8 @@ import asyncio
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
 
-from core2.sites import financial_times
-from core2.sites import times_of_india
+from core2.sites.financialtimes import financial_times
+from core2.sites.timesofindia import times_of_india
 
 from model.result import Result
 from model.verifier_result import VerifierResult
@@ -29,15 +29,13 @@ async def launcher(text: str = "inflation") -> VerifierResult:
         found_on = 0
 
         # 1. Financial Times
-        # ft_result = await financial_times(page, text)
-        # if(ft_result.found):
-        #   found_on += 1
-        # results.append(ft_result)
+        ft_result: Result = await financial_times(page, text)
+        found_on += 1
+        results.append(ft_result)
 
         # 2. Times of India
-        toi_result = await times_of_india(page, text)
-        if(toi_result):
-            found_on += 1
+        toi_result: Result = await times_of_india(page, text)
+        found_on += 1
         results.append(toi_result)
 
         await browser.close()

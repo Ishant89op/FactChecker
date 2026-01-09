@@ -56,9 +56,6 @@ async def financial_times(page, text: str = "inflation") -> Result:
     if(heading != None): 
         found = True
     
-
-    # for i, item in enumerate(items, 1):
-    #   print(f"{i:02}. {item.heading}\n    {item.url}\n")
     if(found == True):
         return Result(
             found = found,
