@@ -32,13 +32,14 @@ class HomeViewModel(
 
         println("Launching Coroutine")
         scope.launch {
-            println("Corouting Launched")
+            println("Coroutine Launched")
             _uiState.update {
                 println("Updating _uiState")
                 it.copy(
                     isLoading = true,
                     isInputEnabled = false,
-                    isButtonEnabled = false,
+                    isCheckButtonEnabled = false,
+                    isGetInfoButtonEnabled = false,
                     showResults = false
                 )
             }
@@ -51,7 +52,8 @@ class HomeViewModel(
                     it.copy(
                         isLoading = false,
                         isInputEnabled = true,
-                        isButtonEnabled = true,
+                        isCheckButtonEnabled = true,
+                        isGetInfoButtonEnabled = true,
                         showResults = true,
                         results = verified.results,
                         error = verified.error
@@ -62,7 +64,55 @@ class HomeViewModel(
                     it.copy(
                         isLoading = false,
                         isInputEnabled = true,
-                        isButtonEnabled = true,
+                        isCheckButtonEnabled = true,
+                        showResults = true,
+                        results = null
+                    )
+                }
+            }
+        }
+    }
+
+    fun getInfo() {
+        println("Check fn called")
+        val text = _uiState.value.input
+        if (text.isBlank()) return
+
+        println("Launching Coroutine")
+        scope.launch {
+            println("Coroutine Launched")
+            _uiState.update {
+                println("Updating _uiState")
+                it.copy(
+                    isLoading = true,
+                    isInputEnabled = false,
+                    isCheckButtonEnabled = false,
+                    isGetInfoButtonEnabled = false,
+                    showResults = false
+                )
+            }
+
+            try {
+                println("Calling Repo fn with text = ${text}")
+                val verified = repository.getInfo(text)
+                println("Got Output from Repo")
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        isInputEnabled = true,
+                        isCheckButtonEnabled = true,
+                        isGetInfoButtonEnabled = true,
+                        showResults = true,
+                        results = verified.results,
+                        error = verified.error
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        isInputEnabled = true,
+                        isCheckButtonEnabled = true,
                         showResults = true,
                         results = null
                     )

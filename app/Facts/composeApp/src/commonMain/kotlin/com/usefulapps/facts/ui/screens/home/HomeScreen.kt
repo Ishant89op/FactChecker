@@ -1,6 +1,8 @@
 package com.usefulapps.facts.ui.screens.home
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -9,17 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.usefulapps.facts.data.model.Result
 import com.usefulapps.facts.di.AppModule
-import com.usefulapps.facts.viewmodel.HomeViewModel
-import com.usefulapps.facts.viewmodel.model.HomeUiState
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -37,12 +34,14 @@ fun HomeScreen(
         modifier = modifier.padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        FieldAndButton(
+        FieldAndButtons(
             fieldEnabled = uiState.isInputEnabled,
-            buttonEnabled = uiState.isButtonEnabled,
+            checkButtonEnabled = uiState.isCheckButtonEnabled,
+            getInfoButtonEnabled = uiState.isGetInfoButtonEnabled,
             text = uiState.input,
             setInformation = viewModel::setInput,
-            check = viewModel::check
+            check = viewModel::check,
+            getInfo = viewModel::getInfo
         )
         if(uiState.isLoading) Loading()
         if(uiState.showResults) {
@@ -58,13 +57,15 @@ fun HomeScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun FieldAndButton(
+fun FieldAndButtons(
     modifier: Modifier = Modifier,
     text: String,
     fieldEnabled: Boolean = true,
-    buttonEnabled: Boolean = true,
+    checkButtonEnabled: Boolean = true,
+    getInfoButtonEnabled: Boolean = true,
     setInformation: (String) -> Unit,
-    check: () -> Unit
+    check: () -> Unit,
+    getInfo: () -> Unit
 ) {
     Column(
         modifier = modifier,
@@ -78,12 +79,26 @@ fun FieldAndButton(
             enabled = fieldEnabled
         )
 
-        Button(
-            modifier = Modifier.padding(8.dp),
-            onClick = check,
-            enabled = buttonEnabled
+        Row(
+            modifier = Modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Text(text = "Check")
+            Button(
+                modifier = Modifier.padding(8.dp),
+                onClick = check,
+                enabled = checkButtonEnabled
+            ) {
+                Text(text = "Check")
+            }
+
+            Button(
+                modifier = Modifier.padding(8.dp),
+                onClick = getInfo,
+                enabled = getInfoButtonEnabled
+            ) {
+                Text(text = "Get Info")
+            }
         }
     }
 }
