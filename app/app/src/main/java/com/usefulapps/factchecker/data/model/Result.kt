@@ -1,0 +1,15 @@
+package com.usefulapps.factchecker.data.model
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Result(
+    val found: Boolean,
+    val site: String,
+    val url: String,
+    val snippet: String,
+    val numbers_matched: Int,
+    val phrases_matched: Int,
+    val verdict: Boolean,
+    val error: String? = null
+)
