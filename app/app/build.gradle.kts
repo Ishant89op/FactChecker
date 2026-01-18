@@ -64,6 +64,7 @@ dependencies {
 
     // Kotlinx Serialization JSON (core library)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.compose.ui.text.google.fonts)
 
 
     testImplementation(libs.junit)
