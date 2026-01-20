@@ -1,5 +1,6 @@
 package com.usefulapps.factchecker.viewmodel
 
+import androidx.lifecycle.ViewModel
 import com.usefulapps.factchecker.domain.repository.CheckerRepository
 import com.usefulapps.factchecker.viewmodel.model.HomeUiState
 import kotlinx.coroutines.CoroutineScope
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val repository: CheckerRepository
-) {
+): ViewModel() {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
