@@ -64,7 +64,18 @@ dependencies {
 
     // Kotlinx Serialization JSON (core library)
     implementation(libs.kotlinx.serialization.json)
+
+    // Google Fonts Library
     implementation(libs.androidx.compose.ui.text.google.fonts)
+
+    // Koin for Android
+    implementation(libs.koin.android)
+
+    // Koin for Compose
+    implementation(libs.koin.androidx.compose)
+
+    // Koin for Navigation
+    implementation(libs.koin.androidx.navigation)
 
 
     testImplementation(libs.junit)

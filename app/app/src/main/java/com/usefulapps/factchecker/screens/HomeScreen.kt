@@ -17,17 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.usefulapps.factchecker.data.model.Result
-import com.usefulapps.factchecker.di.AppModule
+import com.usefulapps.factchecker.viewmodel.HomeViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = koinViewModel()
 ) {
-    val viewModel = remember {
-        AppModule.provideViewModel()
-    }
-
     val uiState by viewModel.uiState.collectAsState()
 
     Column(

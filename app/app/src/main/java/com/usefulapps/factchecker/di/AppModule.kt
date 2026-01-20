@@ -4,13 +4,16 @@ import com.usefulapps.factchecker.data.remote.ApiService
 import com.usefulapps.factchecker.data.remote.HTTPclient
 import com.usefulapps.factchecker.domain.repository.CheckerRepository
 import com.usefulapps.factchecker.viewmodel.HomeViewModel
+import org.koin.core.module.dsl.viewModel
+import org.koin.dsl.module
 
-object AppModule {
-    private val httpClient = HTTPclient.create()
-    private val apiService = ApiService(httpClient)
-    private val repository = CheckerRepository(apiService)
+val appModule = module {
 
-    fun provideViewModel(): HomeViewModel {
-        return HomeViewModel(repository)
-    }
+    single { HTTPclient.create() }
+
+    single { ApiService(get()) }
+
+    single { CheckerRepository(get()) }
+
+    viewModel { HomeViewModel(get()) }
 }
