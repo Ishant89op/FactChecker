@@ -6,6 +6,14 @@ import com.usefulapps.factchecker.domain.model.VerifiedResult
 class CheckerRepository(
     private val apiService: ApiService
 ) {
+
+    suspend fun isServiceOnline(): Boolean {
+        println("Trying to get API.")
+        val response = apiService.runServiceAPI()
+        println("Got response from API")
+        return response.online
+    }
+
     suspend fun verifier(text: String): VerifiedResult {
         println("Request reached Repository")
         val response = apiService.runVerifierAPI(text)

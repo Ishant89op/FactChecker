@@ -16,6 +16,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -25,15 +27,20 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.usefulapps.factchecker.R
+import com.usefulapps.factchecker.viewmodel.ServerInformationViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun ServerInformationScreen(
     modifier: Modifier = Modifier,
-    serverOnline: Boolean = false,
+    viewModel: ServerInformationViewModel = koinViewModel(),
     closeIconClick: () -> Unit = {}
 ) {
+
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -69,13 +76,13 @@ fun ServerInformationScreen(
 
             val clientImage = painterResource(R.drawable.client_black)
 
-            val syncImage = if(serverOnline) {
+            val syncImage = if(uiState.isServerOnline) {
                 painterResource(R.drawable.sync_black)
             } else {
                 painterResource(R.drawable.close_small_24)
             }
 
-            val serverImage = if(serverOnline) {
+            val serverImage = if(uiState.isServerOnline) {
                 painterResource(R.drawable.host_green)
             } else {
                 painterResource(R.drawable.host_red)

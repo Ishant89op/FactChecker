@@ -2,6 +2,7 @@ package com.usefulapps.factchecker.data.remote
 
 import com.usefulapps.factchecker.data.model.ApiRequest
 import com.usefulapps.factchecker.data.model.ApiResponse
+import com.usefulapps.factchecker.data.model.ServiceResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.timeout
@@ -18,8 +19,16 @@ private val ApiGetInfoURL = "http://localhost:8000/check_M2"
 class ApiService(
     private val client: HttpClient
 ) {
-    suspend fun ApiDetails(): String {
-        return client.get(ApiURL).body()
+    suspend fun runServiceAPI(): ServiceResponse {
+        try {
+            return client.get(ApiURL) {
+                contentType(ContentType.Application.Json)
+                setBody(ServiceResponse())
+            }.body()
+        } catch (e: Exception) {
+            println(e)
+            throw e
+        }
     }
     suspend fun runVerifierAPI(text: String): ApiResponse {
         println("POST API called")

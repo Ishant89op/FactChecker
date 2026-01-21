@@ -10,6 +10,7 @@ from core.verifier import VerifierResult
 
 from model.request import Request
 from model.response import Response
+from model.service import Service
 
 from core2.playwright_launcher import launcher
 
@@ -25,14 +26,16 @@ app.add_middleware(
 
 verifier = Verifier()
 
-@app.get("/")
+@app.get("/", response_model=Service)
 async def root():
-    return {
-        "status": "online",
-        "service": "Fact Checker API" ,
-        "google_search_M1": "This method searches on google. (/check_M1)",
-        "direct_site_search_M2": "This method individually searches the sites.(/check_M2)"
-    }
+    try:
+        return Service(
+            online = True
+        )
+    except:
+        return Service(
+            online = False
+        )
 
 @app.post("/check_M1", response_model=Response)
 async def google_search(req: Request):
