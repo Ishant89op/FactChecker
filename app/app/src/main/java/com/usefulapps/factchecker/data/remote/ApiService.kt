@@ -1,5 +1,6 @@
 package com.usefulapps.factchecker.data.remote
 
+import com.usefulapps.factchecker.constant.post_api_apiService
 import com.usefulapps.factchecker.data.model.ApiRequest
 import com.usefulapps.factchecker.data.model.ApiResponse
 import com.usefulapps.factchecker.data.model.ServiceResponse
@@ -31,7 +32,7 @@ class ApiService(
         }
     }
     suspend fun runVerifierAPI(text: String): ApiResponse {
-        println("POST API called")
+        println(post_api_apiService)
         try {
             return client.post(ApiVerifierURL) {
                 contentType(ContentType.Application.Json)
@@ -44,7 +45,7 @@ class ApiService(
     }
 
     suspend fun runGetInfoAPI(text: String): ApiResponse {
-        println("POST API called")
+        println(post_api_apiService)
         try {
             return client.post(ApiGetInfoURL) {
                 contentType(ContentType.Application.Json)

@@ -1,6 +1,7 @@
 package com.usefulapps.factchecker.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.usefulapps.factchecker.constant.*
 import com.usefulapps.factchecker.domain.repository.CheckerRepository
 import com.usefulapps.factchecker.viewmodel.model.HomeUiState
 import kotlinx.coroutines.CoroutineScope
@@ -27,15 +28,15 @@ class HomeViewModel(
     }
 
     fun check() {
-        println("Check fn called")
+        println(check_function_homeViewmodel)
         val text = _uiState.value.input
         if (text.isBlank()) return
 
-        println("Launching Coroutine")
+        println(coroutine_homeViewmodel)
         scope.launch {
-            println("Coroutine Launched")
+            println(coroutine_launched_homeViewmodel)
             _uiState.update {
-                println("Updating _uiState")
+                println(updating_uiState_homeViewmodel)
                 it.copy(
                     isLoading = true,
                     isInputEnabled = false,
@@ -46,9 +47,9 @@ class HomeViewModel(
             }
 
             try {
-                println("Calling Repo fn with text = ${text}")
+                println("$call_repo_fn_homeViewmodel$text")
                 val verified = repository.verifier(text)
-                println("Got Output from Repo")
+                println(output_repo_homeViewmodel)
                 _uiState.update {
                     it.copy(
                         isLoading = false,
@@ -75,15 +76,15 @@ class HomeViewModel(
     }
 
     fun getInfo() {
-        println("Check fn called")
+        println(getInfo_function_homeViewmodel)
         val text = _uiState.value.input
         if (text.isBlank()) return
 
-        println("Launching Coroutine")
+        println(coroutine_homeViewmodel)
         scope.launch {
-            println("Coroutine Launched")
+            println(coroutine_launched_homeViewmodel)
             _uiState.update {
-                println("Updating _uiState")
+                println(updating_uiState_homeViewmodel)
                 it.copy(
                     isLoading = true,
                     isInputEnabled = false,
@@ -94,9 +95,9 @@ class HomeViewModel(
             }
 
             try {
-                println("Calling Repo fn with text = ${text}")
+                println("$call_repo_fn_homeViewmodel${text}")
                 val verified = repository.getInfo(text)
-                println("Got Output from Repo")
+                println(output_repo_homeViewmodel)
                 _uiState.update {
                     it.copy(
                         isLoading = false,

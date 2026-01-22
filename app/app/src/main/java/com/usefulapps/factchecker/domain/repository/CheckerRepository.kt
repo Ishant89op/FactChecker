@@ -1,5 +1,6 @@
 package com.usefulapps.factchecker.domain.repository
 
+import com.usefulapps.factchecker.constant.*
 import com.usefulapps.factchecker.data.remote.ApiService
 import com.usefulapps.factchecker.domain.model.VerifiedResult
 
@@ -8,16 +9,16 @@ class CheckerRepository(
 ) {
 
     suspend fun isServiceOnline(): Boolean {
-        println("Trying to get API.")
+        println(try_api_checkerRepo)
         val response = apiService.runServiceAPI()
-        println("Got response from API")
+        println(response_api_checkerRepo)
         return response.online
     }
 
     suspend fun verifier(text: String): VerifiedResult {
-        println("Request reached Repository")
+        println(request_repo_checkerRepo)
         val response = apiService.runVerifierAPI(text)
-        println("Got Output from API")
+        println(response_api_checkerRepo)
         return VerifiedResult(
             success = response.success,
             found_on = response.found_on,
@@ -29,9 +30,9 @@ class CheckerRepository(
     }
 
     suspend fun getInfo(text: String): VerifiedResult {
-        println("Request reached Repository")
+        println(request_repo_checkerRepo)
         val response = apiService.runGetInfoAPI(text)
-        println("Got Output from API")
+        println(response_api_checkerRepo)
         return VerifiedResult(
             success = response.success,
             found_on = response.found_on,

@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">Fact Checker</string>
 
-    // Server Information Screen
+    // Home Screen ---------------------------------------------------------
+    <string name="input_field_label">URL / Fact</string>
+    <string name="check_button">Check</string>
+    <string name="getInfo_button">Get Info</string>
+    // ---------------------------------------------------------------------
+
+
+    // Server Information Screen -------------------------------------------
     <string name="server_information_app_bar">Server Information</string>
     <string name="close_button_CD">Close</string>
     <string name="client">Client</string>
     <string name="sync">Sync</string>
     <string name="host">Host</string>
+    // ---------------------------------------------------------------------
 </resources>

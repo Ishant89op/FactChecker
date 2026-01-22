@@ -14,8 +14,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.usefulapps.factchecker.R
 import com.usefulapps.factchecker.data.model.Result
 import com.usefulapps.factchecker.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -73,7 +75,7 @@ fun FieldAndButtons(
             modifier = Modifier.padding(4.dp),
             value = text,
             onValueChange = setInformation,
-            label = {Text("URL / Fact")},
+            label = {Text(stringResource(R.string.input_field_label))},
             enabled = fieldEnabled
         )
 
@@ -87,7 +89,7 @@ fun FieldAndButtons(
                 onClick = check,
                 enabled = checkButtonEnabled
             ) {
-                Text(text = "Check")
+                Text(stringResource(R.string.check_button))
             }
 
             Button(
@@ -95,7 +97,7 @@ fun FieldAndButtons(
                 onClick = getInfo,
                 enabled = getInfoButtonEnabled
             ) {
-                Text(text = "Get Info")
+                Text(stringResource(R.string.getInfo_button))
             }
         }
     }
