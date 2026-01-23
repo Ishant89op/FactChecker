@@ -76,17 +76,19 @@ fun ServerInformationScreen(
 
             val clientImage = painterResource(R.drawable.client_black)
 
-            val syncImage = if(uiState.isServerOnline) {
-                painterResource(R.drawable.sync_black)
-            } else {
-                painterResource(R.drawable.close_small_24)
-            }
+            val syncImage = painterResource(
+                if (uiState.isServerOnline)
+                    R.drawable.sync_black
+                else
+                    R.drawable.close_small_24
+            )
 
-            val serverImage = if(uiState.isServerOnline) {
-                painterResource(R.drawable.host_green)
-            } else {
-                painterResource(R.drawable.host_red)
-            }
+            val serverImage = painterResource(
+                if (uiState.isServerOnline)
+                    R.drawable.host_green
+                else
+                    R.drawable.host_red
+            )
 
             Row(
                 modifier = Modifier

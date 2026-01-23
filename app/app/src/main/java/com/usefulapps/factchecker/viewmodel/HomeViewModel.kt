@@ -122,4 +122,28 @@ class HomeViewModel(
             }
         }
     }
+
+    fun testServer() {
+        println("Testing API service")
+        println("Launching Coroutine")
+        scope.launch {
+            try {
+                println("Calling Repo fn")
+                val service = repository.isServiceOnline()
+                println("Got Output from Repo")
+                _uiState.update {
+                    it.copy(
+                        isServerOnline = service
+                    )
+                }
+            } catch (e: Exception) {
+                println("Some error occurred")
+                _uiState.update {
+                    it.copy(
+                        isServerOnline = false
+                    )
+                }
+            }
+        }
+    }
 }

@@ -6,6 +6,7 @@ data class HomeUiState(
     val input: String = "",
     val isLoading: Boolean = false,
     val isInputEnabled: Boolean = true,
+    val isServerOnline: Boolean = true,
     val isCheckButtonEnabled: Boolean = true,
     val isGetInfoButtonEnabled: Boolean = true,
     val showResults: Boolean = false,

@@ -20,7 +20,7 @@ class ServerInformationViewModel(
     private val _uiState = MutableStateFlow(ServerInformationUiState())
     val uiState: StateFlow<ServerInformationUiState> = _uiState
 
-    suspend fun testServer() {
+    fun testServer() {
         println("Testing API service")
         println("Launching Coroutine")
         scope.launch {
