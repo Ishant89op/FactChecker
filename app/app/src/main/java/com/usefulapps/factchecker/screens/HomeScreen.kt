@@ -44,7 +44,11 @@ import org.koin.androidx.compose.koinViewModel
 @Preview(showBackground = true, showSystemUi = true)
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = koinViewModel()
+    viewModel: HomeViewModel = koinViewModel(),
+    onAppInfoClick: () -> Unit = {},
+    onSettingsClick: () -> Unit = {},
+    onHowItWorksClick: () -> Unit = {},
+    onServerInfoClick: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -62,7 +66,12 @@ fun HomeScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DrawerContent()
+            DrawerContent(
+                modifier = Modifier,
+                onAppInfoClick = onAppInfoClick,
+                onSettingsClick = onSettingsClick,
+                onHowItWorksClick = onHowItWorksClick
+            )
         }
     ) {
         Scaffold(
@@ -73,14 +82,22 @@ fun HomeScreen(
                     navigationIcon = {
                         IconButton(
                             onClick = {
-                                scope.launch { drawerState.open() }
+                                scope.launch {
+                                    if(drawerState.isClosed) {
+                                        drawerState.open()
+                                    } else {
+                                        drawerState.close()
+                                    }
+                                }
                             }
                         ) {
                             Icon(Icons.Default.Menu, contentDescription = "Menu")
                         }
                     },
                     actions = {
-                        IconButton(onClick = { }) {
+                        IconButton(
+                            onClick = onServerInfoClick
+                        ) {
                             Icon(
                                 painter = serverIcon,
                                 contentDescription = "Server Online or Not Icon"

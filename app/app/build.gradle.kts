@@ -77,6 +77,9 @@ dependencies {
     // Koin for Navigation
     implementation(libs.koin.androidx.navigation)
 
+    // Nav 3
+    implementation(libs.androidx.navigation3.ui)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

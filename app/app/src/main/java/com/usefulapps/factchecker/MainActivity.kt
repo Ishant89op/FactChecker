@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.usefulapps.factchecker.di.appModule
+import com.usefulapps.factchecker.navigation.AppNavigation
 import com.usefulapps.factchecker.screens.HomeScreen
 import com.usefulapps.factchecker.ui.theme.FactCheckerTheme
 import org.koin.android.ext.koin.androidContext
@@ -37,5 +38,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun FactChecker(modifier: Modifier = Modifier) {
-    HomeScreen()
+    AppNavigation()
 }
