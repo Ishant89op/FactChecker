@@ -1,7 +1,6 @@
 package com.usefulapps.factchecker.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.usefulapps.factchecker.constant.*
 import com.usefulapps.factchecker.domain.repository.CheckerRepository
 import com.usefulapps.factchecker.viewmodel.model.HomeUiState
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val repository: CheckerRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
@@ -22,128 +21,121 @@ class HomeViewModel(
     val uiState: StateFlow<HomeUiState> = _uiState
 
     fun setInput(value: String) {
+        _uiState.update { it.copy(input = value) }
+    }
+
+    fun verify() {
+        val text = _uiState.value.input.trim()
+        if (text.isBlank()) return
+
+        // Detect if input is a URL
+        val inputType = if (text.startsWith("http://") || text.startsWith("https://")) "url" else "statement"
+
+        scope.launch {
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                    isInputEnabled = false,
+                    showResults = false,
+                    result = null,
+                    error = null,
+                    currentStatus = "queued",
+                    statusMessage = "Starting verification...",
+                    sourcesChecked = 0
+                )
+            }
+
+            try {
+                val result = repository.verify(
+                    input = text,
+                    type = inputType,
+                    onStatusUpdate = { status, message, sourcesChecked ->
+                        _uiState.update {
+                            it.copy(
+                                currentStatus = status,
+                                statusMessage = message,
+                                sourcesChecked = sourcesChecked
+                            )
+                        }
+                    }
+                )
+
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        isInputEnabled = true,
+                        showResults = true,
+                        result = result,
+                        error = result.error
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        isInputEnabled = true,
+                        showResults = false,
+                        error = "Connection error: ${e.message?.take(100)}"
+                    )
+                }
+            }
+        }
+    }
+
+    fun clearResult() {
         _uiState.update {
-            it.copy(input = value)
-        }
-    }
-
-    fun check() {
-        println(check_function_homeViewmodel)
-        val text = _uiState.value.input
-        if (text.isBlank()) return
-
-        println(coroutine_homeViewmodel)
-        scope.launch {
-            println(coroutine_launched_homeViewmodel)
-            _uiState.update {
-                println(updating_uiState_homeViewmodel)
-                it.copy(
-                    isLoading = true,
-                    isInputEnabled = false,
-                    isCheckButtonEnabled = false,
-                    isGetInfoButtonEnabled = false,
-                    showResults = false
-                )
-            }
-
-            try {
-                println("$call_repo_fn_homeViewmodel$text")
-                val verified = repository.verifier(text)
-                println(output_repo_homeViewmodel)
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        isInputEnabled = true,
-                        isCheckButtonEnabled = true,
-                        isGetInfoButtonEnabled = true,
-                        showResults = true,
-                        results = verified.results,
-                        error = verified.error
-                    )
-                }
-            } catch (e: Exception) {
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        isInputEnabled = true,
-                        isCheckButtonEnabled = true,
-                        showResults = true,
-                        results = null
-                    )
-                }
-            }
-        }
-    }
-
-    fun getInfo() {
-        println(getInfo_function_homeViewmodel)
-        val text = _uiState.value.input
-        if (text.isBlank()) return
-
-        println(coroutine_homeViewmodel)
-        scope.launch {
-            println(coroutine_launched_homeViewmodel)
-            _uiState.update {
-                println(updating_uiState_homeViewmodel)
-                it.copy(
-                    isLoading = true,
-                    isInputEnabled = false,
-                    isCheckButtonEnabled = false,
-                    isGetInfoButtonEnabled = false,
-                    showResults = false
-                )
-            }
-
-            try {
-                println("$call_repo_fn_homeViewmodel${text}")
-                val verified = repository.getInfo(text)
-                println(output_repo_homeViewmodel)
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        isInputEnabled = true,
-                        isCheckButtonEnabled = true,
-                        isGetInfoButtonEnabled = true,
-                        showResults = true,
-                        results = verified.results,
-                        error = verified.error
-                    )
-                }
-            } catch (e: Exception) {
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        isInputEnabled = true,
-                        isCheckButtonEnabled = true,
-                        showResults = true,
-                        results = null
-                    )
-                }
-            }
+            it.copy(
+                showResults = false,
+                result = null,
+                error = null,
+                input = ""
+            )
         }
     }
 
     fun testServer() {
-        println("Testing API service")
-        println("Launching Coroutine")
         scope.launch {
             try {
-                println("Calling Repo fn")
-                val service = repository.isServiceOnline()
-                println("Got Output from Repo")
+                val online = repository.isServiceOnline()
+                _uiState.update { it.copy(isServerOnline = online) }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(isServerOnline = false) }
+            }
+        }
+    }
+
+    fun loadHistory() {
+        scope.launch {
+            _uiState.update { it.copy(isLoadingHistory = true) }
+            try {
+                val (items, cursor) = repository.getHistory()
                 _uiState.update {
                     it.copy(
-                        isServerOnline = service
+                        history = items,
+                        historyCursor = cursor,
+                        isLoadingHistory = false
                     )
                 }
             } catch (e: Exception) {
-                println("Some error occurred")
+                _uiState.update { it.copy(isLoadingHistory = false) }
+            }
+        }
+    }
+
+    fun loadMoreHistory() {
+        val cursor = _uiState.value.historyCursor
+        if (cursor.isEmpty()) return
+
+        scope.launch {
+            try {
+                val (items, newCursor) = repository.getHistory(cursor)
                 _uiState.update {
                     it.copy(
-                        isServerOnline = false
+                        history = it.history + items,
+                        historyCursor = newCursor
                     )
                 }
-            }
+            } catch (_: Exception) { }
         }
     }
 }

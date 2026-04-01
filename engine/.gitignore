@@ -1,13 +1,34 @@
 # Python caches
-.pytest_cache/
-__pycache__
-_pycache_
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
 # Virtual environment
+.venv/
 venv/
+env/
 
-# Tests (if you truly don't want them tracked)
+# Distribution
+*.egg-info/
+dist/
+build/
+
+# Tests
+.pytest_cache/
 tests/
 
-#Intellij
-.idea
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets - NEVER commit these
+.env
+serviceAccountKey.json
+*-service-account*.json
+
+# OS
+.DS_Store
+Thumbs.db

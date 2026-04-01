@@ -1,269 +1,407 @@
 package com.usefulapps.factchecker.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDrawerState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.usefulapps.factchecker.R
-import com.usefulapps.factchecker.data.model.Result
+import androidx.compose.ui.unit.sp
+import com.usefulapps.factchecker.ui.theme.*
 import com.usefulapps.factchecker.viewmodel.HomeViewModel
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview(showBackground = true, showSystemUi = true)
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel(),
-    onAppInfoClick: () -> Unit = {},
-    onSettingsClick: () -> Unit = {},
-    onHowItWorksClick: () -> Unit = {},
+    onNavigateToResult: () -> Unit = {},
+    onNavigateToHistory: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {},
     onServerInfoClick: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-
-    val serverIcon = painterResource(
-        if(uiState.isServerOnline) {
-            R.drawable.host_green
-        } else {
-            R.drawable.host_red
+    // Navigate to result screen when result arrives
+    LaunchedEffect(uiState.showResults) {
+        if (uiState.showResults && uiState.result != null) {
+            onNavigateToResult()
         }
-    )
+    }
 
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            DrawerContent(
-                modifier = Modifier,
-                onAppInfoClick = onAppInfoClick,
-                onSettingsClick = onSettingsClick,
-                onHowItWorksClick = onHowItWorksClick
+    Scaffold(
+        bottomBar = {
+            BottomNavBar(
+                selected = 0,
+                onHomeClick = {},
+                onHistoryClick = onNavigateToHistory,
+                onSettingsClick = onNavigateToSettings
             )
-        }
-    ) {
-        Scaffold(
-            modifier = modifier,
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = { Text("Dashboard") },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = {
-                                scope.launch {
-                                    if(drawerState.isClosed) {
-                                        drawerState.open()
-                                    } else {
-                                        drawerState.close()
-                                    }
-                                }
-                            }
-                        ) {
-                            Icon(Icons.Default.Menu, contentDescription = "Menu")
-                        }
-                    },
-                    actions = {
-                        IconButton(
-                            onClick = onServerInfoClick
-                        ) {
-                            Icon(
-                                painter = serverIcon,
-                                contentDescription = "Server Online or Not Icon"
-                            )
-                        }
-                    }
-                )
-            }
-
-        ) { padding ->
+        },
+        containerColor = MaterialTheme.colorScheme.surface
+    ) { padding ->
+        if (uiState.isLoading) {
+            // Loading state - matches Stitch loading design
+            LoadingView(
+                modifier = Modifier.padding(padding),
+                status = uiState.currentStatus,
+                message = uiState.statusMessage,
+                sourcesChecked = uiState.sourcesChecked
+            )
+        } else {
             Column(
-                modifier = modifier.padding(padding),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
             ) {
-                FieldAndButtons(
-                    fieldEnabled = uiState.isInputEnabled,
-                    checkButtonEnabled = uiState.isCheckButtonEnabled,
-                    getInfoButtonEnabled = uiState.isGetInfoButtonEnabled,
-                    text = uiState.input,
-                    setInformation = viewModel::setInput,
-                    check = viewModel::check,
-                    getInfo = viewModel::getInfo
-                )
-                if (uiState.isLoading) Loading()
-                if (uiState.showResults) {
-                    val errorMessage = uiState.error
-                    if (errorMessage != null) {
-                        Error(message = errorMessage)
-                    } else {
-                        Results(uiState.results)
+                // Top App Bar
+                TopBar()
+
+                // Hero Section
+                Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp)) {
+                    Text(
+                        text = "Verify claims.\nTrust sources.",
+                        style = MaterialTheme.typography.displaySmall.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontStyle = FontStyle.Italic,
+                            lineHeight = 40.sp
+                        ),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        text = "In an age of rapid information, ensure the integrity of what you read. Our AI-driven engine cross-references verified archives in seconds.",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Input Card
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                ) {
+                    Column(modifier = Modifier.padding(8.dp)) {
+                        OutlinedTextField(
+                            value = uiState.input,
+                            onValueChange = viewModel::setInput,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 160.dp),
+                            placeholder = {
+                                Text(
+                                    "Paste a claim, article link, or statement here to verify...",
+                                    color = MaterialTheme.colorScheme.outline
+                                )
+                            },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color.Transparent,
+                                unfocusedBorderColor = Color.Transparent,
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor = Color.Transparent,
+                            ),
+                            enabled = uiState.isInputEnabled
+                        )
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            horizontalArrangement = Arrangement.End
+                        ) {
+                            Button(
+                                onClick = { viewModel.verify() },
+                                enabled = uiState.input.isNotBlank() && uiState.isInputEnabled,
+                                modifier = Modifier.height(52.dp),
+                                shape = RoundedCornerShape(12.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary
+                                )
+                            ) {
+                                Text(
+                                    "Verify",
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 16.sp
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Icon(
+                                    Icons.AutoMirrored.Filled.ArrowForward,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
                     }
                 }
+
+                // Error display
+                if (uiState.error != null && !uiState.isLoading) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(24.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.errorContainer
+                        ),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(
+                            text = uiState.error ?: "",
+                            modifier = Modifier.padding(16.dp),
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Deep Context Engine card
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFFFFDBD1) // primary-fixed
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(24.dp)) {
+                        Text(
+                            "✨",
+                            fontSize = 32.sp
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Text(
+                            "Deep Context Engine",
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = Color(0xFF3A0A00)
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            "We don't just flag \"True\" or \"False\". Our engine analyzes cultural nuances, historical context, and source credibility to give you the complete picture.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color(0xFF842503)
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(80.dp))
             }
         }
     }
 }
 
 @Composable
-@Preview(showBackground = true)
-fun FieldAndButtons(
-    modifier: Modifier = Modifier,
-    text: String = "Write here bro!",
-    fieldEnabled: Boolean = true,
-    checkButtonEnabled: Boolean = true,
-    getInfoButtonEnabled: Boolean = true,
-    setInformation: (String) -> Unit = {},
-    check: () -> Unit = {},
-    getInfo: () -> Unit = {}
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+fun TopBar() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        OutlinedTextField(
-            modifier = Modifier.padding(4.dp),
-            value = text,
-            onValueChange = setInformation,
-            label = {Text(stringResource(R.string.input_field_label))},
-            enabled = fieldEnabled
-        )
-
-        Row(
-            modifier = Modifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            Button(
-                modifier = Modifier.padding(8.dp),
-                onClick = check,
-                enabled = checkButtonEnabled
-            ) {
-                Text(stringResource(R.string.check_button))
-            }
-
-            Button(
-                modifier = Modifier.padding(8.dp),
-                onClick = getInfo,
-                enabled = getInfoButtonEnabled
-            ) {
-                Text(stringResource(R.string.getInfo_button))
-            }
-        }
-    }
-}
-
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun DrawerContent(
-    modifier: Modifier = Modifier,
-    onAppInfoClick: () -> Unit = {},
-    onSettingsClick: () -> Unit = {},
-    onHowItWorksClick: () -> Unit = {}
-) {
-    ModalDrawerSheet {
         Text(
-            text = "App Menu",
-            modifier = Modifier.padding(16.dp),
-            style = MaterialTheme.typography.titleLarge
-        )
-
-        NavigationDrawerItem(
-            label = { Text("App Info") },
-            selected = true,
-            onClick = onAppInfoClick
-        )
-
-        NavigationDrawerItem(
-            label = { Text("How it works?") },
-            selected = false,
-            onClick = onHowItWorksClick
-        )
-
-        NavigationDrawerItem(
-            label = { Text("Settings") },
-            selected = false,
-            onClick = onSettingsClick
+            text = "FactCheck",
+            style = MaterialTheme.typography.headlineMedium.copy(
+                fontWeight = FontWeight.Bold,
+                fontStyle = FontStyle.Italic
+            ),
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
 
 @Composable
-@Preview(showBackground = true)
-fun Loading(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator()
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun Error(
+fun LoadingView(
     modifier: Modifier = Modifier,
-    message: String = "Code Red!"
+    status: String,
+    message: String,
+    sourcesChecked: Int
 ) {
     Column(
         modifier = modifier
+            .fillMaxSize()
+            .padding(32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Text(message)
+        Text(
+            "Analyzing Authenticity",
+            style = MaterialTheme.typography.headlineMedium.copy(
+                fontWeight = FontWeight.ExtraBold
+            ),
+            color = MaterialTheme.colorScheme.onSurface
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            message.ifEmpty { "Initializing..." },
+            style = MaterialTheme.typography.bodyLarge.copy(fontStyle = FontStyle.Italic),
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        LinearProgressIndicator(
+            modifier = Modifier
+                .width(200.dp)
+                .clip(RoundedCornerShape(2.dp)),
+            color = MaterialTheme.colorScheme.primary,
+            trackColor = MaterialTheme.colorScheme.outlineVariant
+        )
+
+        Spacer(modifier = Modifier.height(48.dp))
+
+        // Status cards
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            // Web Sources card
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+                )
+            ) {
+                Column(modifier = Modifier.padding(20.dp)) {
+                    Text(
+                        "Web Sources",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontStyle = FontStyle.Italic
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    StatusRow("Playwright", if (status == "scraping") "Scanning" else if (status == "analyzing" || status == "reconciling" || status == "complete") "Done" else "Queued")
+                    StatusRow("Sources", if (sourcesChecked > 0) "$sourcesChecked found" else "Waiting")
+                }
+            }
+
+            // AI Analysis card
+            Card(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
+                )
+            ) {
+                Column(modifier = Modifier.padding(20.dp)) {
+                    Text(
+                        "AI Analysis",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontStyle = FontStyle.Italic
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    StatusRow("Gemini", if (status == "analyzing") "Running" else if (status == "reconciling" || status == "complete") "Done" else "Queued")
+                    StatusRow("OpenAI", if (status == "analyzing") "Running" else if (status == "reconciling" || status == "complete") "Done" else "Queued")
+                }
+            }
+        }
     }
 }
 
 @Composable
-@Preview(showBackground = true)
-fun Results(
-    results: List<Result>? = null
-) {
-    Column(
+fun StatusRow(label: String, status: String) {
+    Row(
         modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        if (results != null) {
-            for(res in results) {
-                Text(res.site)
-                if(res.found) {
-                    Text("Found!")
-                    Text(res.url)
-                    Text(res.snippet)
-                } else {
-                    Text("Not Found!")
-                }
-                Text(res.verdict.toString())
-            }
-        }
+        Text(
+            label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            status,
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+            color = if (status == "Done") MaterialTheme.colorScheme.tertiary
+            else if (status == "Scanning" || status == "Running") MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.outline
+        )
+    }
+}
+
+@Composable
+fun BottomNavBar(
+    selected: Int,
+    onHomeClick: () -> Unit,
+    onHistoryClick: () -> Unit,
+    onSettingsClick: () -> Unit
+) {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
+        tonalElevation = 0.dp
+    ) {
+        NavigationBarItem(
+            selected = selected == 0,
+            onClick = onHomeClick,
+            icon = {
+                Icon(Icons.Default.Search, contentDescription = "Home")
+            },
+            label = { Text("HOME", fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color(0xFF360F04),
+                indicatorColor = Color(0xFFFFDBD1)
+            )
+        )
+        NavigationBarItem(
+            selected = selected == 1,
+            onClick = onHistoryClick,
+            icon = {
+                Icon(Icons.Default.Search, contentDescription = "History")
+            },
+            label = { Text("HISTORY", fontSize = 10.sp) },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color(0xFF360F04),
+                indicatorColor = Color(0xFFFFDBD1)
+            )
+        )
+        NavigationBarItem(
+            selected = selected == 2,
+            onClick = onSettingsClick,
+            icon = {
+                Icon(Icons.Default.Search, contentDescription = "Settings")
+            },
+            label = { Text("SETTINGS", fontSize = 10.sp) },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color(0xFF360F04),
+                indicatorColor = Color(0xFFFFDBD1)
+            )
+        )
     }
 }

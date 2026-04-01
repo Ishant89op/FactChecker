@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FactCheck - Verification History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#00497e",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#e5e2dd",
+              "inverse-on-surface": "#f3f0eb",
+              "primary": "#781f00",
+              "outline": "#8b716a",
+              "on-surface-variant": "#57423c",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#a0caff",
+              "background": "#fcf9f4",
+              "on-primary-fixed": "#3a0a00",
+              "error-container": "#ffdad6",
+              "surface": "#fcf9f4",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#ffbda9",
+              "on-secondary-fixed": "#360f04",
+              "surface-container-high": "#ebe8e3",
+              "on-secondary-container": "#7a4433",
+              "surface-container": "#f0ede9",
+              "on-surface": "#1c1c19",
+              "primary-fixed": "#ffdbd1",
+              "on-error": "#ffffff",
+              "inverse-surface": "#31302d",
+              "surface-tint": "#a53c19",
+              "on-primary-fixed-variant": "#842503",
+              "error": "#ba1a1a",
+              "tertiary": "#004172",
+              "on-tertiary-fixed": "#001c37",
+              "on-error-container": "#93000a",
+              "surface-container-highest": "#e5e2dd",
+              "secondary-fixed": "#ffdbd1",
+              "secondary": "#884f3e",
+              "on-secondary-fixed-variant": "#6c3929",
+              "surface-dim": "#dcdad5",
+              "on-background": "#1c1c19",
+              "tertiary-container": "#005999",
+              "primary-fixed-dim": "#ffb59f",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#abcfff",
+              "surface-bright": "#fcf9f4",
+              "secondary-container": "#ffb59f",
+              "tertiary-fixed": "#d2e4ff",
+              "outline-variant": "#dec0b7",
+              "primary-container": "#9a3412",
+              "inverse-primary": "#ffb59f",
+              "surface-container-low": "#f6f3ee",
+              "secondary-fixed-dim": "#ffb59f"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Newsreader"],
+              "label": ["Newsreader"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 12px 32px rgba(87, 66, 60, 0.08);
+        }
+        .clay-gradient {
+            background: linear-gradient(45deg, #781f00 0%, #9a3412 100%);
+        }
+        body {
+            font-family: 'Newsreader', serif;
+            background-color: #fcf9f4;
+            color: #1c1c19;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-[#fcf9f4] dark:bg-[#1c1c19] w-full top-0 z-50 sticky">
+<div class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-200 text-[#781f00] dark:text-[#ffdbd1]">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+<h1 class="font-['Newsreader'] tracking-tighter antialiased text-3xl font-bold text-[#781f00] dark:text-[#ffdbd1]">FactCheck</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-[#57423c] dark:text-[#dec0b7] font-medium hover:opacity-80 transition-opacity" href="#">Feed</a>
+<a class="text-[#781f00] dark:text-[#ffdbd1] font-semibold hover:opacity-80 transition-opacity" href="#">Verify</a>
+<a class="text-[#57423c] dark:text-[#dec0b7] font-medium hover:opacity-80 transition-opacity" href="#">Saved</a>
+</nav>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed editorial-shadow">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="portrait of a professional man with short hair in natural outdoor lighting, soft earth tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn9bqfeci8G5rEomhv89BrM00BtKOd7Cca0DXPYoquS2D1GG_GeflwW2JG9dQIdNJ77XU2PpDad-FLjCl7rzs48rWIjviLNw_mQUvUENSx6vQwgqJLtdfqMFoxYntsv_e3-ygoLLS5aEptMCMtJVDPzJIYRuSrwaL-WTxJta2gIWFJbmbkjPdagz9URKsxBpNKXZw2Sk7gJP3Li5Gby-M8MUUVWmMUpesNoRBuYARPuXjUY4F_VaeVAiP7dUCCbrROxNX4l_3FF00"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-6 py-8">
+<!-- Editorial Header -->
+<div class="mb-12">
+<h2 class="text-5xl font-bold tracking-tight text-primary mb-4 italic">The Archive</h2>
+<p class="text-on-surface-variant text-xl max-w-lg leading-relaxed">
+                Reviewing the landscape of truth. Your personal history of verified claims and digital forensics.
+            </p>
+</div>
+<!-- Search Bar -->
+<div class="relative mb-10 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-high border-none border-b-2 border-outline focus:ring-0 focus:border-primary px-12 py-4 text-lg font-medium transition-all rounded-t-lg" placeholder="Search past verifications..." type="text"/>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-3 overflow-x-auto pb-6 hide-scrollbar mb-8">
+<button class="bg-secondary-fixed text-on-secondary-fixed px-6 py-2 rounded-xl text-sm font-semibold editorial-shadow transition-transform active:scale-95">All</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-6 py-2 rounded-xl text-sm font-medium hover:bg-surface-container-high transition-colors">TRUE</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-6 py-2 rounded-xl text-sm font-medium hover:bg-surface-container-high transition-colors">FALSE</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-6 py-2 rounded-xl text-sm font-medium hover:bg-surface-container-high transition-colors">MISLEADING</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-6 py-2 rounded-xl text-sm font-medium hover:bg-surface-container-high transition-colors">UNVERIFIED</button>
+</div>
+<!-- History List -->
+<div class="space-y-6">
+<!-- History Item 1: False -->
+<div class="group relative bg-surface-container-low rounded-xl p-6 transition-all hover:bg-surface-container-highest active:scale-[0.99]">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded text-xs font-bold tracking-widest uppercase">False</span>
+<span class="text-on-surface-variant text-sm italic">Oct 24, 2023</span>
+</div>
+<h3 class="text-2xl font-semibold text-on-surface mb-3 leading-tight line-clamp-2 italic">"New climate report suggests polar ice caps are growing at record rates in 2023..."</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-error flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm">close</span>
+</div>
+<span class="text-on-surface-variant font-medium">98.4% Confidence</span>
+</div>
+<button class="text-primary hover:underline font-bold italic">Details</button>
+</div>
+<!-- Swipe Hint (Mobile) -->
+<div class="absolute right-0 top-0 h-full w-12 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-l from-surface-container-high to-transparent rounded-r-xl">
+<span class="material-symbols-outlined text-outline">swipe_left</span>
+</div>
+</div>
+<!-- History Item 2: True -->
+<div class="group relative bg-surface-container-low rounded-xl p-6 transition-all hover:bg-surface-container-highest active:scale-[0.99]">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded text-xs font-bold tracking-widest uppercase">True</span>
+<span class="text-on-surface-variant text-sm italic">Oct 21, 2023</span>
+</div>
+<h3 class="text-2xl font-semibold text-on-surface mb-3 leading-tight line-clamp-2 italic">"Local community center secures funding for urban garden project starting next spring."</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-tertiary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="text-on-surface-variant font-medium">92.1% Confidence</span>
+</div>
+<button class="text-primary hover:underline font-bold italic">Details</button>
+</div>
+</div>
+<!-- History Item 3: Misleading -->
+<div class="group relative bg-surface-container-low rounded-xl p-6 transition-all hover:bg-surface-container-highest active:scale-[0.99]">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded text-xs font-bold tracking-widest uppercase">Misleading</span>
+<span class="text-on-surface-variant text-sm italic">Oct 18, 2023</span>
+</div>
+<h3 class="text-2xl font-semibold text-on-surface mb-3 leading-tight line-clamp-2 italic">"Video shows major tech CEO announcing permanent remote work for all global employees."</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm">warning</span>
+</div>
+<span class="text-on-surface-variant font-medium">87.5% Confidence</span>
+</div>
+<button class="text-primary hover:underline font-bold italic">Details</button>
+</div>
+</div>
+<!-- History Item 4: Unverified -->
+<div class="group relative bg-surface-container-low rounded-xl p-6 transition-all hover:bg-surface-container-highest active:scale-[0.99]">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded text-xs font-bold tracking-widest uppercase">Pending</span>
+<span class="text-on-surface-variant text-sm italic">Oct 15, 2023</span>
+</div>
+<h3 class="text-2xl font-semibold text-on-surface mb-3 leading-tight line-clamp-2 italic">"Ancient artifacts discovered in suburban basement may date back to early Roman era."</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-outline flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm animate-spin">sync</span>
+</div>
+<span class="text-on-surface-variant font-medium">Processing analysis...</span>
+</div>
+<button class="text-primary hover:underline font-bold italic">Details</button>
+</div>
+</div>
+</div>
+<!-- End of Archive Marker -->
+<div class="py-16 text-center">
+<div class="inline-block w-12 h-1 bg-outline-variant opacity-30 rounded-full mb-4"></div>
+<p class="text-on-surface-variant font-medium italic">End of recent history</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 px-4 pb-6">
+<div class="flex justify-around items-center w-full max-w-md mx-auto bg-[#fcf9f4]/80 dark:bg-[#1c1c19]/80 backdrop-blur-xl rounded-2xl shadow-[0_-12px_32px_rgba(87,66,60,0.08)] py-2">
+<a class="flex flex-col items-center justify-center text-[#57423c] dark:text-[#dec0b7] px-6 py-2 opacity-70 hover:opacity-100 transition-all active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined mb-1">search</span>
+<span class="font-serif text-[11px] uppercase tracking-widest">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#ffdbd1] dark:bg-[#360f04] text-[#360f04] dark:text-[#ffdbd1] rounded-xl px-6 py-2 transition-all active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined mb-1">history</span>
+<span class="font-serif text-[11px] uppercase tracking-widest font-bold">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#57423c] dark:text-[#dec0b7] px-6 py-2 opacity-70 hover:opacity-100 transition-all active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined mb-1">settings_2</span>
+<span class="font-serif text-[11px] uppercase tracking-widest">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

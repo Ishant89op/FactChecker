@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FactCheck - Verification Result</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#00497e",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#e5e2dd",
+              "inverse-on-surface": "#f3f0eb",
+              "primary": "#781f00",
+              "outline": "#8b716a",
+              "on-surface-variant": "#57423c",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#a0caff",
+              "background": "#fcf9f4",
+              "on-primary-fixed": "#3a0a00",
+              "error-container": "#ffdad6",
+              "surface": "#fcf9f4",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#ffbda9",
+              "on-secondary-fixed": "#360f04",
+              "surface-container-high": "#ebe8e3",
+              "on-secondary-container": "#7a4433",
+              "surface-container": "#f0ede9",
+              "on-surface": "#1c1c19",
+              "primary-fixed": "#ffdbd1",
+              "on-error": "#ffffff",
+              "inverse-surface": "#31302d",
+              "surface-tint": "#a53c19",
+              "on-primary-fixed-variant": "#842503",
+              "error": "#ba1a1a",
+              "tertiary": "#004172",
+              "on-tertiary-fixed": "#001c37",
+              "on-error-container": "#93000a",
+              "surface-container-highest": "#e5e2dd",
+              "secondary-fixed": "#ffdbd1",
+              "secondary": "#884f3e",
+              "on-secondary-fixed-variant": "#6c3929",
+              "surface-dim": "#dcdad5",
+              "on-background": "#1c1c19",
+              "tertiary-container": "#005999",
+              "primary-fixed-dim": "#ffb59f",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#abcfff",
+              "surface-bright": "#fcf9f4",
+              "secondary-container": "#ffb59f",
+              "tertiary-fixed": "#d2e4ff",
+              "outline-variant": "#dec0b7",
+              "primary-container": "#9a3412",
+              "inverse-primary": "#ffb59f",
+              "surface-container-low": "#f6f3ee",
+              "secondary-fixed-dim": "#ffb59f"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Newsreader"],
+              "label": ["Newsreader"],
+              "mono": ["JetBrains Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Newsreader', serif; }
+        .mono-text { font-family: 'JetBrains Mono', monospace; }
+        .glass-panel {
+            background: rgba(165, 60, 25, 0.05);
+            backdrop-filter: blur(20px);
+        }
+        .clay-gradient {
+            background: linear-gradient(45deg, #781f00 0%, #9a3412 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-[#fcf9f4] dark:bg-[#1c1c19] w-full top-0 z-50 flat no shadows sticky">
+<div class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#781f00] dark:text-[#ffdbd1] cursor-pointer active:scale-95 duration-200">menu</span>
+<h1 class="text-3xl font-bold text-[#781f00] dark:text-[#ffdbd1] tracking-tighter font-['Newsreader']">FactCheck</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 items-center">
+<span class="text-[#57423c] dark:text-[#dec0b7] font-semibold hover:opacity-80 transition-opacity cursor-pointer">Feed</span>
+<span class="text-[#781f00] dark:text-[#ffdbd1] font-semibold hover:opacity-80 transition-opacity cursor-pointer">Verify</span>
+<span class="text-[#57423c] dark:text-[#dec0b7] font-semibold hover:opacity-80 transition-opacity cursor-pointer">Saved</span>
+</nav>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/15">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="professional portrait of a user with a neutral background, soft studio lighting, editorial photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2CY4LZTnxsI0gP40pRzoSqzV27CGMUGiA25-OBj8aEgAV8KYcL_xIMqvueD_2Ko-tLtt8I8XCTi62rtYzbTkfnR-ErcpoFrLL1wGaf5UfKAXGBic-QneY1vqVRWl6l47FTNhAavYTMy31Mr31CR3vFl_nab17eoZdoB6PajQHfZaUrQ0NBRK3lZ3np8ZEo_OKBTzvzktO9Cc6hvrC6LAZSCnaCjcxZeBH8yV9xWVWSVMsfPJfbmo9W2ocQVv7BqcySBd3TT0n4No"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-6 py-12 pb-32">
+<!-- MOSTLY TRUE Banner -->
+<div class="glass-panel border-l-8 border-primary rounded-xl p-8 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden relative">
+<div class="z-10">
+<h2 class="text-5xl font-extrabold tracking-tighter text-primary mb-2 italic">MOSTLY TRUE</h2>
+<p class="text-on-surface-variant italic opacity-80">Verification complete. Some nuances detected.</p>
+</div>
+<div class="z-10 flex flex-col items-end">
+<div class="text-primary text-4xl font-bold tracking-tight mb-2">87% <span class="text-lg font-normal">Confidence</span></div>
+<div class="w-48 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[87%] rounded-full"></div>
+</div>
+</div>
+<!-- Background Decorative Text -->
+<div class="absolute -right-10 -bottom-10 text-9xl font-bold text-primary/5 pointer-events-none select-none">FACT</div>
+</div>
+<!-- Original Claim -->
+<section class="mb-12">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">format_quote</span>
+<h3 class="text-on-surface-variant label-md uppercase tracking-widest font-semibold">Original Claim</h3>
+</div>
+<p class="text-3xl font-medium leading-tight text-on-surface">
+                "Global investment in regenerative agriculture increased by 42% in the last fiscal year, reaching a record high of $12.4 billion."
+            </p>
+</section>
+<!-- Reasoning Accordions -->
+<section class="space-y-4 mb-12">
+<div class="group">
+<details class="bg-surface-container-low rounded-xl overflow-hidden cursor-pointer" open="">
+<summary class="flex items-center justify-between p-6 hover:bg-surface-container transition-colors list-none">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">surfing</span>
+<span class="text-xl font-bold">Gemini's Reasoning</span>
+</div>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-6 pt-0 mono-text text-sm leading-relaxed text-on-secondary-container bg-surface-container-lowest/50">
+                        The claim correctly identifies the trend in regenerative agriculture. However, the 42% figure matches specifically the APAC and North American reporting regions, while European growth was slightly lower at 38%. The $12.4B total is accurate according to the World Economic Forum 2023 briefing.
+                    </div>
+</details>
+</div>
+<div class="group">
+<details class="bg-surface-container-low rounded-xl overflow-hidden cursor-pointer">
+<summary class="flex items-center justify-between p-6 hover:bg-surface-container transition-colors list-none">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="text-xl font-bold">OpenAI's Reasoning</span>
+</div>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-6 pt-0 mono-text text-sm leading-relaxed text-on-secondary-container bg-surface-container-lowest/50">
+                        Analysis of historical data confirms the record-breaking nature of current investments. The discrepancy noted in the "Mostly True" rating arises from the definition of "fiscal year," as different governing bodies use varied end-dates for this specific tally.
+                    </div>
+</details>
+</div>
+</section>
+<!-- Sources Section -->
+<section class="mb-16">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-2xl font-bold tracking-tight">Verified Sources</h3>
+<span class="text-on-surface-variant text-sm font-medium">3 Citations Found</span>
+</div>
+<div class="space-y-4">
+<!-- Source Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex items-center gap-6 group hover:shadow-[0_12px_32px_rgba(87,66,60,0.08)] transition-all">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden shrink-0">
+<img alt="Source preview" class="w-full h-full object-cover" data-alt="aerial view of organic farmland with diverse crop patterns and lush greenery, warm morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwjXsel9UJfA6Gpf4mUvQLRMvPo29um4LCH-aOSq0hPCbsa54-4mO3cfiWpBCOulIbeu4VyLHarDVyvzjEleTtsRBO2g7O2Y-7G2f33Jr9Ly5jtOBb86UY0kjtjvMnS_bCS07u8vP5GA2LxzNG9guJOXF7qCEL17UDTsK96SfnTwJ6L1K4aZYJ3MLFlSJNToqjgq0ckcs7V2O-sdLL6O3mE_yngnO692SCFrx6RFpud_jIPrBS0DP2W7kJMRJWrBX4rxgQoiW_4ZE"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs font-bold text-primary uppercase tracking-tighter px-2 py-0.5 bg-primary-fixed rounded">High Relevance</span>
+<span class="text-on-surface-variant text-xs italic">weforum.org</span>
+</div>
+<h4 class="font-bold text-lg mb-1 leading-tight group-hover:text-primary transition-colors">The 2023 State of Global Agri-Tech Investment</h4>
+<p class="text-on-surface-variant text-sm italic">Direct data match for the $12.4B record figure.</p>
+</div>
+<a class="text-primary font-bold flex items-center gap-1 hover:opacity-80" href="#">
+                        View <span class="material-symbols-outlined text-lg">open_in_new</span>
+</a>
+</div>
+<!-- Source Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex items-center gap-6 group hover:shadow-[0_12px_32px_rgba(87,66,60,0.08)] transition-all">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden shrink-0">
+<img alt="Source preview" class="w-full h-full object-cover" data-alt="close-up of rich dark soil with small green sprouts, bright daylight, agricultural concept" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmYE0LWDtfkIvNZCBQIn53tC_DtgOfgnq48oZRWIPh_ydjyA98btPJOm1C2tJ9m4rdtpfLwNW-HiKzAHxszd1G0wnf2ZqgHWEV_2IXal0z5Ep0PXdlmx8TwJ5ofCNmX_ZlOMQ0Ouug4XyOiSRURo8hixPBNVESVDc8ul-JUBNArxV4DfAqq5DMqAvdb8hfwW33zmw7U_RqLS0AZ5CtObvpznxf7N5jFZjW3C71IVcQ2bXE1vVkpBidOoGJRe7UlqP0xZjQM7qDB5w"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs font-bold text-secondary-fixed-dim uppercase tracking-tighter px-2 py-0.5 bg-surface-container-high rounded text-on-secondary-container">Contextual</span>
+<span class="text-on-surface-variant text-xs italic">reuters.com</span>
+</div>
+<h4 class="font-bold text-lg mb-1 leading-tight group-hover:text-primary transition-colors">Regenerative Farming: The New Gold Rush</h4>
+<p class="text-on-surface-variant text-sm italic">Analysis of private equity shifts into sustainable soil management.</p>
+</div>
+<a class="text-primary font-bold flex items-center gap-1 hover:opacity-80" href="#">
+                        View <span class="material-symbols-outlined text-lg">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Action Row -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 py-8 border-t border-outline-variant/15">
+<button class="w-full sm:w-auto clay-gradient text-on-primary font-bold px-8 py-3 rounded-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">share</span>
+                Share Result
+            </button>
+<button class="w-full sm:w-auto bg-surface-container-highest text-primary font-bold px-8 py-3 rounded-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">restart_alt</span>
+                Check Another
+            </button>
+<button class="w-full sm:w-auto text-on-surface-variant text-sm font-semibold italic flex items-center justify-center gap-1 hover:text-primary transition-colors py-2 px-4">
+<span class="material-symbols-outlined text-lg">flag</span>
+                Report Issue
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 px-4 pb-6 md:hidden">
+<div class="flex justify-around items-center w-full max-w-md mx-auto bg-[#fcf9f4]/80 dark:bg-[#1c1c19]/80 backdrop-blur-xl rounded-2xl shadow-[0_-12px_32px_rgba(87,66,60,0.08)] py-4">
+<div class="flex flex-col items-center justify-center bg-[#ffdbd1] dark:bg-[#360f04] text-[#360f04] dark:text-[#ffdbd1] rounded-xl px-6 py-2 hover:opacity-100 transition-all active:scale-95 duration-150 cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="font-serif text-[11px] uppercase tracking-widest mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#57423c] dark:text-[#dec0b7] px-6 py-2 opacity-70 hover:opacity-100 transition-all active:scale-95 duration-150 cursor-pointer">
+<span class="material-symbols-outlined">history</span>
+<span class="font-serif text-[11px] uppercase tracking-widest mt-1">History</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#57423c] dark:text-[#dec0b7] px-6 py-2 opacity-70 hover:opacity-100 transition-all active:scale-95 duration-150 cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-serif text-[11px] uppercase tracking-widest mt-1">Settings</span>
+</div>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FactCheck - Verification Result</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,700;1,400&amp;family=Work+Sans:wght@300;400;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#ecf0ff",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "on-primary-fixed-variant": "#832600",
+                        "outline-variant": "#59413a",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container": "#201f1f",
+                        "surface-tint": "#ffb59d",
+                        "primary-fixed": "#ffdbd0",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary": "#581e08",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#004494",
+                        "on-secondary-fixed-variant": "#75331c",
+                        "secondary-container": "#75331c",
+                        "on-surface-variant": "#e1bfb5",
+                        "on-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "background": "#131313",
+                        "on-primary-container": "#ffece7",
+                        "surface-container-highest": "#353534",
+                        "inverse-surface": "#e5e2e1",
+                        "secondary-fixed": "#ffdbd0",
+                        "secondary": "#ffb59d",
+                        "tertiary": "#adc6ff",
+                        "on-secondary-fixed": "#390c00",
+                        "tertiary-fixed": "#d8e2ff",
+                        "surface-bright": "#3a3939",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#ffb59d",
+                        "secondary-fixed-dim": "#ffb59d",
+                        "inverse-primary": "#ac3400",
+                        "primary-container": "#c2410c",
+                        "on-primary": "#5d1800",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-secondary-container": "#fa9e7f",
+                        "tertiary-container": "#0069de",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#002e69",
+                        "outline": "#a88a81",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#390c00",
+                        "on-tertiary-fixed": "#001a41",
+                        "primary": "#ffb59d",
+                        "surface": "#131313"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"],
+                        "mono": ["JetBrains Mono"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .archive-gradient {
+            background: linear-gradient(180deg, rgba(194, 65, 12, 0.05) 0%, rgba(15, 15, 15, 0) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#131313] shadow-[0_1px_0_0_rgba(89,65,58,0.1)] sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-none">
+<div class="flex items-center gap-4">
+<button class="scale-95 active:scale-90 transition-transform text-[#E5E2E1]/60 hover:text-[#FFB59D]">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-['Newsreader'] italic text-2xl text-[#E5E2E1]">FactCheck</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="scale-95 active:scale-90 transition-transform text-[#E5E2E1]/60 hover:text-[#FFB59D]">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="min-h-screen pb-32">
+<!-- Verdict Banner (Asymmetric Archival Header) -->
+<section class="archive-gradient pt-12 pb-20 px-6 relative overflow-hidden">
+<div class="max-w-4xl mx-auto relative z-10">
+<p class="font-mono text-xs uppercase tracking-[0.3em] text-primary mb-4">Verification Result</p>
+<h2 class="font-headline text-7xl md:text-9xl leading-none text-on-surface tracking-tighter mb-6">
+                    MOSTLY TRUE
+                </h2>
+<!-- Confidence Bar -->
+<div class="mt-8 max-w-md">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label text-sm uppercase tracking-widest text-on-surface-variant">System Confidence</span>
+<span class="font-headline italic text-3xl text-primary">87%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[87%] shadow-[0_0_15px_rgba(194,65,12,0.4)]"></div>
+</div>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-20 -top-20 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[400px]" data-icon="verified_user">verified_user</span>
+</div>
+</section>
+<!-- Claim Section -->
+<section class="px-6 -mt-12 mb-16">
+<div class="max-w-4xl mx-auto bg-surface-container-high p-8 md:p-12 rounded-xl shadow-2xl">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="format_quote">format_quote</span>
+<p class="font-headline text-2xl md:text-3xl text-on-surface leading-relaxed italic">
+                    "The proposed urban development project in the East District will displace over 5,000 residents and increase local CO2 emissions by 12% annually."
+                </p>
+</div>
+</section>
+<!-- AI Reasoning Section -->
+<section class="px-6 mb-16">
+<div class="max-w-4xl mx-auto">
+<h3 class="font-headline text-3xl mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="neurology">neurology</span>
+                    Synthetic Reasoning
+                </h3>
+<div class="space-y-4">
+<!-- Gemini Accordion -->
+<div class="bg-surface-container-low rounded-lg border border-outline-variant/10">
+<button class="w-full flex justify-between items-center p-6 text-left group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="google_plus_resale">google_plus_reshare</span>
+<span class="font-label font-bold text-sm uppercase tracking-widest">Gemini's Reasoning</span>
+</div>
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="expand_more">expand_more</span>
+</button>
+<div class="px-6 pb-6 border-t border-outline-variant/10 pt-4">
+<p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                                Analysis confirms the 5,000 resident displacement figure matches recent municipal census data for the East District redevelopment zone. However, environmental impact reports suggest the 12% CO2 increase is a high-end projection; the median estimate is 8.4% including mitigation strategies. Verdict skewed slightly due to rounding.
+                            </p>
+</div>
+</div>
+<!-- OpenAI Accordion -->
+<div class="bg-surface-container-low rounded-lg border border-outline-variant/10">
+<button class="w-full flex justify-between items-center p-6 text-left group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
+<span class="font-label font-bold text-sm uppercase tracking-widest">OpenAI's Reasoning</span>
+</div>
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="expand_more">expand_more</span>
+</button>
+<div class="px-6 pb-6 border-t border-outline-variant/10 pt-4">
+<p class="font-mono text-sm text-on-surface-variant leading-relaxed">
+                                Cross-referencing current legislative filings and Reuters investigative pieces. The claim correctly identifies the scope of resident movement. Discrepancy noted in emission calculations—claim uses 2023 baseline without accounting for planned 'Green Corridor' offsets scheduled for 2026.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Sources Section -->
+<section class="px-6 mb-24">
+<div class="max-w-4xl mx-auto">
+<h3 class="font-headline text-3xl mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="menu_book">menu_book</span>
+                    Archival Sources
+                </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Source Card 1 -->
+<div class="bg-surface-container border-l-4 border-green-500/50 p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<h4 class="font-bold text-on-surface">Reuters News Archive</h4>
+<span class="text-[10px] bg-green-500/10 text-green-400 px-2 py-1 rounded uppercase tracking-widest font-bold">Supports</span>
+</div>
+<p class="text-sm text-on-surface-variant italic mb-4">"...internal city documents leaked to Reuters indicate a phased relocation of 5,120 registered residents..."</p>
+</div>
+<div class="flex items-center justify-between text-xs text-on-surface/40">
+<span>Published: Oct 12, 2023</span>
+<span class="font-bold text-primary cursor-pointer hover:underline italic">Read Entry</span>
+</div>
+</div>
+<!-- Source Card 2 -->
+<div class="bg-surface-container border-l-4 border-red-500/50 p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<h4 class="font-bold text-on-surface">Wikipedia: East District Project</h4>
+<span class="text-[10px] bg-red-500/10 text-red-400 px-2 py-1 rounded uppercase tracking-widest font-bold">Contradicts</span>
+</div>
+<p class="text-sm text-on-surface-variant italic mb-4">"Revised environmental assessments (Nov 2023) suggest a net carbon increase of 7.2% following the adoption of solar glass requirements."</p>
+</div>
+<div class="flex items-center justify-between text-xs text-on-surface/40">
+<span>Last Edited: 2 Days Ago</span>
+<span class="font-bold text-primary cursor-pointer hover:underline italic">Read Entry</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Row -->
+<section class="px-6">
+<div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-4">
+<button class="flex-1 bg-primary-container text-on-primary-container font-bold py-4 rounded-lg flex items-center justify-center gap-2 hover:bg-primary transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+                    Share Result
+                </button>
+<button class="flex-1 bg-surface-container-high text-on-surface font-bold py-4 rounded-lg flex items-center justify-center gap-2 border border-outline-variant/20 hover:bg-surface-bright transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                    Check Another
+                </button>
+<button class="flex-none px-6 bg-transparent text-error font-bold py-4 rounded-lg flex items-center justify-center gap-2 border border-error/20 hover:bg-error/5 transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="report">report</span>
+                    Report Issue
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 pb-safe px-12 bg-[#0F0F0F] border-t border-[#59413A]/20 shadow-[0_-10px_30px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 pt-2 hover:text-[#E5E2E1] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-['Work_Sans'] text-[10px] uppercase tracking-widest mt-1">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#C2410C] border-t-2 border-[#C2410C] pt-2 opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-['Work_Sans'] text-[10px] uppercase tracking-widest mt-1">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 pt-2 hover:text-[#E5E2E1] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span class="font-['Work_Sans'] text-[10px] uppercase tracking-widest mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

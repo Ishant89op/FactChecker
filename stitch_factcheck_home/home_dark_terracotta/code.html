@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FactCheck - Verify Claims</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Work+Sans:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#ecf0ff",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "on-primary-fixed-variant": "#832600",
+                        "outline-variant": "#59413a",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container": "#201f1f",
+                        "surface-tint": "#ffb59d",
+                        "primary-fixed": "#ffdbd0",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary": "#581e08",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#004494",
+                        "on-secondary-fixed-variant": "#75331c",
+                        "secondary-container": "#75331c",
+                        "on-surface-variant": "#e1bfb5",
+                        "on-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "background": "#131313",
+                        "on-primary-container": "#ffece7",
+                        "surface-container-highest": "#353534",
+                        "inverse-surface": "#e5e2e1",
+                        "secondary-fixed": "#ffdbd0",
+                        "secondary": "#ffb59d",
+                        "on-secondary-fixed": "#390c00",
+                        "tertiary-fixed": "#d8e2ff",
+                        "surface-bright": "#3a3939",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#ffb59d",
+                        "secondary-fixed-dim": "#ffb59d",
+                        "inverse-primary": "#ac3400",
+                        "primary-container": "#c2410c",
+                        "on-primary": "#5d1800",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "on-secondary-container": "#fa9e7f",
+                        "tertiary-container": "#0069de",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#002e69",
+                        "outline": "#a88a81",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#390c00",
+                        "on-tertiary-fixed": "#001a41",
+                        "primary": "#ffb59d",
+                        "surface": "#131313"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"],
+                        "mono": ["JetBrains Mono"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #E5E2E1;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .custom-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#131313] shadow-none flex justify-between items-center w-full px-6 py-6 max-w-none fixed top-0 z-50">
+<div class="flex flex-col">
+<h1 class="font-['Newsreader'] italic text-3xl text-[#E5E2E1] leading-none tracking-tight">FactCheck</h1>
+<p class="font-mono text-[10px] uppercase tracking-[0.2em] text-[#C2410C] mt-1">Verify claims. Trust sources.</p>
+</div>
+<div class="flex gap-4">
+<button class="text-[#E5E2E1]/60 hover:text-[#FFB59D] transition-colors duration-300 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<button class="text-[#E5E2E1]/60 hover:text-[#FFB59D] transition-colors duration-300 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<main class="flex-grow pt-32 pb-24 px-6 md:px-12 max-w-5xl mx-auto w-full">
+<!-- Input Hero Section -->
+<section class="mb-16">
+<div class="relative group">
+<div class="absolute -inset-0.5 bg-primary-container/20 rounded-xl blur opacity-30 group-focus-within:opacity-100 transition duration-500"></div>
+<div class="relative bg-surface-container-lowest rounded-xl p-1">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body text-lg md:text-xl p-6 min-h-[160px] resize-none placeholder:text-on-surface-variant/30" placeholder="Enter a statement or paste a URL"></textarea>
+</div>
+</div>
+<div class="mt-8 flex justify-end">
+<button class="bg-primary-container text-on-primary-container font-headline font-bold text-xl px-12 py-4 rounded-xl editorial-shadow hover:brightness-110 active:scale-95 transition-all duration-200 flex items-center gap-3">
+                    Verify
+                    <span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</button>
+</div>
+</section>
+<!-- Features Grid / Bento Style -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 flex flex-col justify-between min-h-[240px]">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="neurology">neurology</span>
+<span class="font-mono text-[10px] text-primary-container bg-primary-container/10 px-2 py-1 rounded">AI POWERED</span>
+</div>
+<div>
+<h3 class="font-headline text-2xl mb-2 text-on-surface">Deep Semantic Analysis</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-md">Our engine cross-references 400+ verified global databases to detect inconsistencies in real-time.</p>
+</div>
+</div>
+<div class="bg-surface-container-highest p-8 rounded-xl flex flex-col justify-end min-h-[240px] relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="database">database</span>
+</div>
+<h3 class="font-headline text-2xl mb-2 text-on-surface">Global Sources</h3>
+<p class="text-on-surface-variant text-sm">Access the Archive's decentralized truth nodes.</p>
+</div>
+</section>
+<!-- Recent Checks Section -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-mono text-xs font-bold tracking-[0.3em] text-on-surface-variant/50">RECENT CHECKS</h2>
+<button class="text-primary text-xs font-mono uppercase tracking-widest hover:underline">View All</button>
+</div>
+<div class="flex gap-6 overflow-x-auto custom-scrollbar pb-6 -mx-6 px-6">
+<!-- Card 1 -->
+<div class="min-w-[300px] md:min-w-[340px] bg-surface-container p-6 rounded-lg border border-outline-variant/5 hover:border-outline-variant/20 transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-6">
+<span class="bg-green-900/30 text-green-400 font-mono text-[10px] px-2 py-1 rounded-sm border border-green-400/20">TRUE</span>
+<span class="text-[10px] font-mono text-on-surface-variant/40">2m ago</span>
+</div>
+<p class="font-headline text-lg text-on-surface line-clamp-2 mb-4 italic">"Global temperatures in 2023 were the highest on record since 1850..."</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="source">source</span>
+</div>
+<span class="text-[10px] font-mono text-on-surface-variant/60">Verified via NASA &amp; NOAA</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[300px] md:min-w-[340px] bg-surface-container p-6 rounded-lg border border-outline-variant/5 hover:border-outline-variant/20 transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-6">
+<span class="bg-red-900/30 text-red-400 font-mono text-[10px] px-2 py-1 rounded-sm border border-red-400/20">FALSE</span>
+<span class="text-[10px] font-mono text-on-surface-variant/40">14m ago</span>
+</div>
+<p class="font-headline text-lg text-on-surface line-clamp-2 mb-4 italic">"New study suggests that drinking saltwater can cure common cold..."</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+</div>
+<span class="text-[10px] font-mono text-on-surface-variant/60">Disproven by WHO Medical Council</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[300px] md:min-w-[340px] bg-surface-container p-6 rounded-lg border border-outline-variant/5 hover:border-outline-variant/20 transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-6">
+<span class="bg-yellow-900/30 text-yellow-400 font-mono text-[10px] px-2 py-1 rounded-sm border border-yellow-400/20">MISLEADING</span>
+<span class="text-[10px] font-mono text-on-surface-variant/40">1h ago</span>
+</div>
+<p class="font-headline text-lg text-on-surface line-clamp-2 mb-4 italic">"Electric vehicles produce more carbon during manufacturing than..."</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+</div>
+<span class="text-[10px] font-mono text-on-surface-variant/60">Requires context from lifecycle reports</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / Editorial Callout -->
+<section class="mt-12 bg-surface-container-low rounded-xl overflow-hidden flex flex-col md:flex-row border border-outline-variant/5">
+<div class="w-full md:w-1/3 h-48 md:h-auto relative">
+<img class="w-full h-full object-cover grayscale opacity-50" data-alt="dramatic macro shot of old metal typewriter keys with high contrast shadows in a dark library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6dVvUwe0geVFyvILaJUIhdajJ2-SD2lhRXIPeVVl1Q6oexD8v3mmXh1aKi-0KTjifR0pghAGyiP2j2Q_brYqby4N5XVYdD3bmaZigkjIB49Q9LI6w59CrAuPe2KFjOq384ENCHG79HGW5B3Ye6VwKn3YDvIyKwSkP20YxFVZ3CRI-PGXO8oVA-TDQUMOmGd0Xm22SGYOY_WBPZccm8iIOf-z4RvvoCh4QcGJBa2Yr1ZBaaxcB9Fg_xregGc93rwO4KOk0vwR-D4Q"/>
+</div>
+<div class="p-8 md:p-12 flex flex-col justify-center">
+<h3 class="font-headline text-3xl mb-4 text-[#E5E2E1]">The Truth Digest</h3>
+<p class="text-on-surface-variant mb-8 max-w-md leading-relaxed">Weekly deep-dives into the most complex misinformation campaigns. No noise, just vetted intelligence.</p>
+<div class="flex gap-2">
+<input class="bg-surface-container-lowest border-none rounded-lg px-4 py-3 font-mono text-sm w-full md:w-64 focus:ring-1 focus:ring-primary-container" placeholder="archive@vault.com" type="email"/>
+<button class="bg-on-surface text-surface px-6 py-3 rounded-lg font-bold font-body text-sm hover:bg-primary transition-colors">Join</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 pb-safe px-12 bg-[#0F0F0F] border-t border-[#59413A]/20 shadow-[0_-10px_30px_rgba(0,0,0,0.4)]">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center text-[#C2410C] border-t-2 border-[#C2410C] pt-2 h-full px-4 Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-['Work_Sans'] text-[10px] uppercase tracking-widest mt-1">Search</span>
+</a>
+<!-- History -->
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 pt-2 h-full px-4 hover:text-[#E5E2E1] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-['Work_Sans'] text-[10px] uppercase tracking-widest mt-1">History</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-[#E5E2E1]/40 pt-2 h-full px-4 hover:text-[#E5E2E1] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span class="font-['Work_Sans'] text-[10px] uppercase tracking-widest mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

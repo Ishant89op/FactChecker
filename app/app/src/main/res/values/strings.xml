@@ -10,9 +10,21 @@
 
     // Server Information Screen -------------------------------------------
     <string name="server_information_app_bar">Server Information</string>
-    <string name="close_button_CD">Close</string>
     <string name="client">Client</string>
     <string name="sync">Sync</string>
     <string name="host">Host</string>
+    // ---------------------------------------------------------------------
+
+
+    // App Information Screen ----------------------------------------------
+    <string name="app_information_app_bar">App Information</string>
+    <string name="client">Client</string>
+    <string name="sync">Sync</string>
+    <string name="host">Host</string>
+    // ---------------------------------------------------------------------
+
+
+    // Commons -------------------------------------------------------------
+    <string name="close_button_CD">Close</string>
     // ---------------------------------------------------------------------
 </resources>

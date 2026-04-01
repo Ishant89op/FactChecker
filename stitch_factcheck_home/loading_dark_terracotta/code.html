@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FactCheck - Analyzing Authenticity</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,700;1,400&amp;family=Work+Sans:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#ecf0ff",
+              "surface-container-high": "#2a2a2a",
+              "surface-variant": "#353534",
+              "surface-dim": "#131313",
+              "on-primary-fixed-variant": "#832600",
+              "outline-variant": "#59413a",
+              "error-container": "#93000a",
+              "surface-container-low": "#1c1b1b",
+              "surface-container": "#201f1f",
+              "surface-tint": "#ffb59d",
+              "primary-fixed": "#ffdbd0",
+              "surface-container-lowest": "#0e0e0e",
+              "on-secondary": "#581e08",
+              "on-background": "#e5e2e1",
+              "on-tertiary-fixed-variant": "#004494",
+              "on-secondary-fixed-variant": "#75331c",
+              "secondary-container": "#75331c",
+              "on-surface-variant": "#e1bfb5",
+              "on-surface": "#e5e2e1",
+              "inverse-on-surface": "#313030",
+              "background": "#131313",
+              "on-primary-container": "#ffece7",
+              "surface-container-highest": "#353534",
+              "inverse-surface": "#e5e2e1",
+              "secondary-fixed": "#ffdbd0",
+              "secondary": "#ffb59d",
+              "tertiary": "#adc6ff",
+              "on-secondary-fixed": "#390c00",
+              "tertiary-fixed": "#d8e2ff",
+              "surface-bright": "#3a3939",
+              "on-error-container": "#ffdad6",
+              "primary-fixed-dim": "#ffb59d",
+              "secondary-fixed-dim": "#ffb59d",
+              "inverse-primary": "#ac3400",
+              "primary-container": "#c2410c",
+              "on-primary": "#5d1800",
+              "tertiary-fixed-dim": "#adc6ff",
+              "on-secondary-container": "#fa9e7f",
+              "tertiary-container": "#0069de",
+              "error": "#ffb4ab",
+              "on-tertiary": "#002e69",
+              "outline": "#a88a81",
+              "on-error": "#690005",
+              "on-primary-fixed": "#390c00",
+              "on-tertiary-fixed": "#001a41",
+              "primary": "#ffb59d",
+              "surface": "#131313"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Scan Line Animation - Requested by user */
+        @keyframes scan {
+            0% { top: -10%; opacity: 0; }
+            10% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+            90% { opacity: 0.5; }
+            100% { top: 110%; opacity: 0; }
+        }
+        .scan-line {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #c2410c, transparent);
+            box-shadow: 0 0 15px #c2410c;
+            z-index: 100;
+            pointer-events: none;
+            animation: scan 4s linear infinite;
+        }
+
+        /* Pulse for dots */
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+        .pulse-dot {
+            animation: pulse-soft 2s ease-in-out infinite;
+        }
+
+        /* Typing indicator simulation */
+        @keyframes typing {
+            0%, 20% { content: "."; }
+            40%, 60% { content: ".."; }
+            80%, 100% { content: "..."; }
+        }
+        .typing::after {
+            content: "...";
+            animation: typing 1.5s steps(3, end) infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container/30">
+<!-- Scan Line Effect -->
+<div class="scan-line"></div>
+<!-- Top Navigation Anchor (Manual suppression of Full Nav as this is a focused Task Screen) -->
+<header class="fixed top-0 left-0 w-full z-40 px-8 py-6 flex justify-between items-center bg-transparent">
+<div class="font-headline italic text-2xl text-on-surface tracking-tight">FactCheck</div>
+<a class="text-on-surface/60 font-label text-xs uppercase tracking-[0.2em] hover:text-primary-container transition-colors duration-300" href="#">
+            Cancel
+        </a>
+</header>
+<main class="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden">
+<!-- Archival Header Pattern -->
+<div class="text-center mb-16 max-w-3xl">
+<h1 class="font-headline text-5xl md:text-7xl text-on-surface tracking-tight leading-none mb-6">
+                Analyzing <span class="italic text-primary">Authenticity</span>
+</h1>
+<div class="w-12 h-[1px] bg-primary-container/40 mx-auto"></div>
+</div>
+<!-- Status Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl relative z-10">
+<!-- Web Sources Card -->
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 shadow-2xl">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-xl text-on-surface">Web Sources</h2>
+<span class="material-symbols-outlined text-primary-container">public</span>
+</div>
+<ul class="space-y-6">
+<li class="flex items-center justify-between group">
+<div class="flex items-center space-x-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary pulse-dot"></span>
+<span class="font-label text-sm text-on-surface/80 group-hover:text-on-surface transition-colors">Wikipedia</span>
+</div>
+<span class="font-label text-[10px] uppercase tracking-widest text-primary/60">Cross-referencing</span>
+</li>
+<li class="flex items-center justify-between group">
+<div class="flex items-center space-x-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container pulse-dot" style="animation-delay: 0.4s"></span>
+<span class="font-label text-sm text-on-surface/80 group-hover:text-on-surface transition-colors">Snopes Archive</span>
+</div>
+<span class="font-label text-[10px] uppercase tracking-widest text-primary/60">Indexing</span>
+</li>
+<li class="flex items-center justify-between group">
+<div class="flex items-center space-x-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary/40"></span>
+<span class="font-label text-sm text-on-surface/40 group-hover:text-on-surface/60 transition-colors">Reuters Feed</span>
+</div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface/20">Queued</span>
+</li>
+</ul>
+</div>
+<!-- AI Analysis Card -->
+<div class="bg-surface-container-high p-8 rounded-xl border border-outline-variant/10 shadow-2xl relative overflow-hidden">
+<!-- Subtle Tonal Background Glow -->
+<div class="absolute -top-24 -right-24 w-48 h-48 bg-primary-container/5 blur-[80px] rounded-full"></div>
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-xl text-on-surface">AI Analysis</h2>
+<span class="material-symbols-outlined text-primary-container">psychology</span>
+</div>
+<div class="space-y-8">
+<div class="relative">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface/60">Gemini Neural</span>
+<span class="font-label text-[10px] text-primary typing">Processing</span>
+</div>
+<div class="h-1 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[65%] transition-all duration-1000 ease-in-out"></div>
+</div>
+</div>
+<div class="relative">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface/60">OpenAI Cluster</span>
+<span class="font-label text-[10px] text-primary typing">Linguistic Scan</span>
+</div>
+<div class="h-1 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/40 w-[32%] transition-all duration-1000 ease-in-out"></div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/10">
+<p class="font-body text-xs italic text-on-surface/50 leading-relaxed">
+                            Contextualizing narrative patterns against historical datasets...
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Progress Footer -->
+<div class="mt-20 text-center">
+<div class="flex items-center justify-center space-x-3 mb-4">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">database</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">hub</span>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">language</span>
+</div>
+</div>
+<p class="font-label text-xs uppercase tracking-[0.3em] text-on-surface/40">
+                    Checking 42 sources across 12 databases...
+                </p>
+</div>
+<!-- Overall Progress Bar -->
+<div class="w-64 h-[2px] bg-surface-container-highest mx-auto overflow-hidden">
+<div class="h-full bg-primary-container w-[48%] animate-pulse"></div>
+</div>
+</div>
+<!-- Background Decorative Elements -->
+<div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
+<div class="absolute top-[20%] left-[10%] w-[400px] h-[400px] bg-primary-container/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[10%] right-[5%] w-[300px] h-[300px] bg-primary/5 blur-[100px] rounded-full"></div>
+<!-- Grain Texture -->
+<div class="absolute inset-0 opacity-[0.03] mix-blend-overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBUfiZjm7e5fSr2VC4OecNQPmhEI9_s_2lpzpJtbNBB0e_YcX9R-nwkrtDX9l84MS7vuxxmgNUwr295wUbRLNl2RJStS4XajO2c2Miv8tzNDZ_pfxVpY9BLEBrCfOMp-T0QCtE8CN0-xsSdjHPKV_WG4Y7bPlxiK0-wyz45yQZVlFQ2fB_RsLiLLRypHaKIxAAecgC4oOhYEIrE9oCpSjiIK_Wmgmr1Gh7wB1XPMNB9uu0bUXbH-OR0eU_g1gvJd8xIQY_zxvUucYY')"></div>
+</div>
+</main>
+<!-- Bottom Notification/Status (Non-navigational) -->
+<footer class="fixed bottom-0 left-0 w-full px-8 py-6 flex justify-center border-t border-outline-variant/5 bg-surface/80 backdrop-blur-md">
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface/30">
+            Secure Archival Verification Engine v2.4.0
+        </p>
+</footer>
+</body></html>

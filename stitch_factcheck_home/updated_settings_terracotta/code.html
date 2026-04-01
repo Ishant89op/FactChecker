@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - FactCheck</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#00497e",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#e5e2dd",
+              "inverse-on-surface": "#f3f0eb",
+              "primary": "#781f00",
+              "outline": "#8b716a",
+              "on-surface-variant": "#57423c",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#a0caff",
+              "background": "#fcf9f4",
+              "on-primary-fixed": "#3a0a00",
+              "error-container": "#ffdad6",
+              "surface": "#fcf9f4",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#ffbda9",
+              "on-secondary-fixed": "#360f04",
+              "surface-container-high": "#ebe8e3",
+              "on-secondary-container": "#7a4433",
+              "surface-container": "#f0ede9",
+              "on-surface": "#1c1c19",
+              "primary-fixed": "#ffdbd1",
+              "on-error": "#ffffff",
+              "inverse-surface": "#31302d",
+              "surface-tint": "#a53c19",
+              "on-primary-fixed-variant": "#842503",
+              "error": "#ba1a1a",
+              "tertiary": "#004172",
+              "on-tertiary-fixed": "#001c37",
+              "on-error-container": "#93000a",
+              "surface-container-highest": "#e5e2dd",
+              "secondary-fixed": "#ffdbd1",
+              "secondary": "#884f3e",
+              "on-secondary-fixed-variant": "#6c3929",
+              "surface-dim": "#dcdad5",
+              "on-background": "#1c1c19",
+              "tertiary-container": "#005999",
+              "primary-fixed-dim": "#ffb59f",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#abcfff",
+              "surface-bright": "#fcf9f4",
+              "secondary-container": "#ffb59f",
+              "tertiary-fixed": "#d2e4ff",
+              "outline-variant": "#dec0b7",
+              "primary-container": "#9a3412",
+              "inverse-primary": "#ffb59f",
+              "surface-container-low": "#f6f3ee",
+              "secondary-fixed-dim": "#ffb59f"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Newsreader"],
+              "label": ["Newsreader"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Newsreader', serif; }
+        .terracotta-gradient {
+            background: linear-gradient(45deg, #781f00 0%, #9a3412 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-[#fcf9f4] dark:bg-[#1c1c19] w-full top-0 z-50 sticky">
+<div class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="text-[#781f00] dark:text-[#ffdbd1] hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-['Newsreader'] tracking-tighter text-3xl font-bold text-[#781f00] dark:text-[#ffdbd1]">FactCheck</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-[#57423c] dark:text-[#dec0b7] font-semibold hover:opacity-80 transition-opacity" href="#">Feed</a>
+<a class="text-[#57423c] dark:text-[#dec0b7] font-semibold hover:opacity-80 transition-opacity" href="#">Verify</a>
+<a class="text-[#781f00] dark:text-[#ffdbd1] font-semibold" href="#">Settings</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant/15 flex items-center justify-center overflow-hidden">
+<img alt="User" data-alt="profile avatar of a professional user in a soft minimalist style with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEYTOrgiA11LBiToFovgeC-6lRgzSiuxelc4Q2LHkkoDlgn6JhpylP_7uRsmBY8J1zhEfMV80V1X2_5xKDNJKLJctYLMMjjctLYGO1IgXA9U3UoOY5lQyrXVGluxDUFLA9ZSfsgAzj2anM8Ly23hWW_zlQri9AyFplq0t5LdCq1GjBZOxVAAA_rBzZOYGb7Ur091xMSpWCtyvieWqqE5EFvXvcIexQKthbbmZZ8umJcPQdzQH1EU9qVbqPZiBvt3t_i0Sjgl6po8A"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-6 pt-12 pb-32">
+<header class="mb-16">
+<h2 class="text-display-lg text-5xl font-bold tracking-tight text-primary mb-4">Settings</h2>
+<p class="text-on-surface-variant italic text-lg">Configure your editorial verification engine.</p>
+</header>
+<div class="space-y-16">
+<!-- API Keys Section -->
+<!-- Backend URL -->
+<!-- Verification Preferences -->
+<section>
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-1/3">
+<h3 class="text-2xl font-bold text-on-surface mb-2">Verification</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Toggle verification sources and depth of search.</p>
+</div>
+<div class="md:w-2/3 space-y-4">
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg">
+<span class="font-medium">Enable Gemini Analysis</span>
+<button class="w-12 h-6 rounded-full bg-secondary-container relative flex items-center px-1">
+<div class="w-4 h-4 bg-on-secondary-container rounded-full ml-auto"></div>
+</button>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg">
+<span class="font-medium">Enable OpenAI Cross-Reference</span>
+<button class="w-12 h-6 rounded-full bg-surface-container-highest relative flex items-center px-1">
+<div class="w-4 h-4 bg-outline-variant rounded-full"></div>
+</button>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg">
+<span class="font-medium">Deep Web Scraping</span>
+<button class="w-12 h-6 rounded-full bg-secondary-container relative flex items-center px-1">
+<div class="w-4 h-4 bg-on-secondary-container rounded-full ml-auto"></div>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Display Settings -->
+<section class="asymmetric-layout">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-1/3">
+<h3 class="text-2xl font-bold text-on-surface mb-2">Display</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Customize how verification results are visualized.</p>
+</div>
+<div class="md:w-2/3 flex flex-col gap-4">
+<label class="flex items-center gap-4 cursor-pointer group">
+<div class="w-6 h-6 border-2 border-primary rounded flex items-center justify-center group-hover:bg-primary-fixed/30 transition-colors">
+<span class="material-symbols-outlined text-primary text-sm font-bold">check</span>
+</div>
+<span class="text-lg">Show confidence scores</span>
+</label>
+<label class="flex items-center gap-4 cursor-pointer group">
+<div class="w-6 h-6 border-2 border-outline-variant rounded flex items-center justify-center group-hover:bg-surface-container-high transition-colors"></div>
+<span class="text-lg">Individual source reasoning</span>
+</label>
+</div>
+</div>
+</section>
+<!-- Data Management -->
+<section class="bg-[#f6f3ee] p-12 rounded-[2rem]">
+<div class="flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+<div>
+<h3 class="text-2xl font-bold text-on-surface mb-2">Archive Management</h3>
+<p class="text-on-surface-variant max-w-md">Your local verification history is stored securely. You can export or clear your vault here.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="bg-surface-container-highest text-primary px-8 py-3 rounded-lg font-bold hover:bg-surface-variant transition-colors active:scale-95">
+                            Export JSON
+                        </button>
+<button class="bg-error-container text-on-error-container px-8 py-3 rounded-lg font-bold hover:opacity-80 transition-opacity active:scale-95">
+                            Clear History
+                        </button>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="pt-16 border-t border-outline-variant/10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-6">
+<h3 class="text-3xl font-bold text-primary tracking-tight">About FactCheck</h3>
+<p class="text-on-surface-variant leading-relaxed italic">
+                            A curated archival tool for the age of information density. Built on the principles of transparency, 
+                            rigor, and editorial integrity.
+                        </p>
+<div class="flex gap-4">
+<span class="text-sm px-3 py-1 bg-surface-container-high rounded-full font-medium">v2.4.0-clay</span>
+<span class="text-sm px-3 py-1 bg-surface-container-high rounded-full font-medium">Built with Newsreader</span>
+</div>
+</div>
+<div class="bg-surface-container p-1 relative overflow-hidden rounded-xl">
+<img class="w-full h-full object-cover rounded-lg opacity-40" data-alt="close-up of textured handmade terracotta paper with subtle shadows and natural fibers for an editorial background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlTGehssgPKfM4ZVEAUd2u9YwlUWB8_GyIOaqla0GV4ut_QuUyEGVDY71FlDMNqiC9QBWRUdj7WYgCi9nmy69ty-MgtMHNn34s_TI-o3LIh8oTugTBwMgQgoFEs3AnqfZj4QUOKR_r8rc3NTvI8naDhWGuC4grLa76JBcVTVKCLhrTHdUpPVMJ3PaBUArsCmaSAvOWSOyIWKV8QHkdV1bjkkeTso0wP1aL9Ox8bWmXRQpGgLz__IHuu4jYhxS-vsWQcuKGTLpmY4c"/>
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<p class="text-primary font-bold text-xl">The Curated Earth</p>
+<p class="text-on-surface-variant text-sm">Designed for Clarity.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-8 pt-4 bg-[#f6f3ee] dark:bg-[#2a2a26] shadow-[0_-12px_32px_rgba(87,66,60,0.08)] z-50 rounded-t-3xl md:hidden">
+<a class="flex flex-col items-center justify-center text-[#57423c] dark:text-[#dec0b7] px-6 py-2 hover:bg-[#ebe8e3] dark:hover:bg-[#3d3d38] rounded-xl active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-['Newsreader'] text-sm italic">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#57423c] dark:text-[#dec0b7] px-6 py-2 hover:bg-[#ebe8e3] dark:hover:bg-[#3d3d38] rounded-xl active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-['Newsreader'] text-sm italic">Verify</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#ffdbd1] dark:bg-[#360f04] text-[#360f04] dark:text-[#ffdbd1] rounded-xl px-6 py-2 transition-all active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-['Newsreader'] text-sm italic">Profile</span>
+</a>
+</nav>
+<!-- FAB (Suppressed based on context rules, but present on specific screens) -->
+<!-- Not rendered here as this is a Settings/Profile focus screen -->
+</body></html>

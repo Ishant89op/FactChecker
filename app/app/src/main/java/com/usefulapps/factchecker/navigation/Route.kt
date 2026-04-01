@@ -7,5 +7,14 @@ sealed interface Route {
     data object HomeScreen : Route
 
     @Serializable
-    data object ServerInformationScreen
+    data object ResultScreen : Route
+
+    @Serializable
+    data object HistoryScreen : Route
+
+    @Serializable
+    data object SettingsScreen : Route
+
+    @Serializable
+    data object ServerInformationScreen : Route
 }

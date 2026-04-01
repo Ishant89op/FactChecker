@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#00497e",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#e5e2dd",
+              "inverse-on-surface": "#f3f0eb",
+              "primary": "#781f00",
+              "outline": "#8b716a",
+              "on-surface-variant": "#57423c",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#a0caff",
+              "background": "#fcf9f4",
+              "on-primary-fixed": "#3a0a00",
+              "error-container": "#ffdad6",
+              "surface": "#fcf9f4",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#ffbda9",
+              "on-secondary-fixed": "#360f04",
+              "surface-container-high": "#ebe8e3",
+              "on-secondary-container": "#7a4433",
+              "surface-container": "#f0ede9",
+              "on-surface": "#1c1c19",
+              "primary-fixed": "#ffdbd1",
+              "on-error": "#ffffff",
+              "inverse-surface": "#31302d",
+              "surface-tint": "#a53c19",
+              "on-primary-fixed-variant": "#842503",
+              "error": "#ba1a1a",
+              "tertiary": "#004172",
+              "on-tertiary-fixed": "#001c37",
+              "on-error-container": "#93000a",
+              "surface-container-highest": "#e5e2dd",
+              "secondary-fixed": "#ffdbd1",
+              "secondary": "#884f3e",
+              "on-secondary-fixed-variant": "#6c3929",
+              "surface-dim": "#dcdad5",
+              "on-background": "#1c1c19",
+              "tertiary-container": "#005999",
+              "primary-fixed-dim": "#ffb59f",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#abcfff",
+              "surface-bright": "#fcf9f4",
+              "secondary-container": "#ffb59f",
+              "tertiary-fixed": "#d2e4ff",
+              "outline-variant": "#dec0b7",
+              "primary-container": "#9a3412",
+              "inverse-primary": "#ffb59f",
+              "surface-container-low": "#f6f3ee",
+              "secondary-fixed-dim": "#ffb59f"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Newsreader"],
+              "label": ["Newsreader"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(400%); opacity: 0; }
+        }
+        .animate-scan {
+            animation: scanline 3s linear infinite;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s ease-in-out infinite;
+        }
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background-color: currentColor;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 1px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Shell -->
+<header class="bg-[#fcf9f4] dark:bg-[#1c1c19] w-full top-0 z-50 flat no shadows">
+<div class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="text-3xl font-bold text-[#781f00] dark:text-[#ffdbd1] tracking-tighter font-['Newsreader'] antialiased">FactCheck</span>
+</div>
+<a class="text-[#781f00] dark:text-[#ffdbd1] font-semibold font-['Newsreader'] italic hover:opacity-80 transition-opacity active:scale-95 duration-200" href="#">
+                Cancel
+            </a>
+</div>
+</header>
+<main class="min-h-[707px] flex flex-col items-center justify-center px-6 relative overflow-hidden">
+<!-- Scan Line Visual -->
+<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden flex justify-center">
+<div class="w-full max-w-4xl h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent animate-scan"></div>
+</div>
+<div class="z-10 w-full max-w-3xl flex flex-col items-center">
+<!-- Central Loading State -->
+<div class="mb-16 text-center">
+<h1 class="text-display-lg text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-6">
+                    Analyzing Authenticity
+                </h1>
+<p class="text-lg italic text-on-surface-variant font-medium">
+                    Checking 42 sources across 12 databases...
+                </p>
+<!-- Editorial Progress Bar -->
+<div class="w-64 h-px bg-outline-variant/30 mx-auto mt-8 relative">
+<div class="absolute top-0 left-0 h-px bg-primary w-2/3 transition-all duration-700"></div>
+</div>
+</div>
+<!-- Bento Status Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+<!-- Web Sources Card -->
+<div class="bg-surface-container-low p-8 rounded-xl relative overflow-hidden group">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="web">web</span>
+<h3 class="text-xl font-bold italic">Web Sources</h3>
+</div>
+<div class="flex gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse-soft"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+</div>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center justify-between group/item">
+<span class="text-on-surface-variant italic">Reuters Archive</span>
+<span class="text-xs font-bold text-primary tracking-widest uppercase opacity-60">Scanning</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="text-on-surface font-semibold">Associated Press</span>
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="text-on-surface-variant italic opacity-50">Local News Clusters</span>
+<span class="text-xs font-bold text-outline tracking-widest uppercase">Queued</span>
+</li>
+</ul>
+</div>
+<!-- AI Analysis Card -->
+<div class="bg-surface-container-highest p-8 rounded-xl relative overflow-hidden">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="neurology">neurology</span>
+<h3 class="text-xl font-bold italic">AI Analysis</h3>
+</div>
+</div>
+<div class="space-y-6">
+<!-- Gemini Status -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between text-sm">
+<span class="font-bold text-on-surface">Gemini</span>
+<span class="text-primary italic font-medium">Cross-referencing</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 text-sm text-on-surface-variant leading-relaxed">
+                                Matching semantic patterns in database 7
+                                <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+</div>
+</div>
+<!-- OpenAI Status -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between text-sm">
+<span class="font-bold text-on-surface">OpenAI</span>
+<span class="text-on-surface-variant italic font-medium">Linguistic check</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 text-sm text-on-surface-variant leading-relaxed">
+                                Evaluating tone and bias markers
+                                <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tactile Decorative Element -->
+<div class="mt-12 opacity-30 mix-blend-multiply pointer-events-none">
+<div class="w-32 h-32 rounded-full border border-primary/20 flex items-center justify-center p-4">
+<div class="w-full h-full rounded-full border border-primary/40 flex items-center justify-center p-4">
+<div class="w-full h-full rounded-full bg-primary/10"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Info / Footer Shell -->
+<footer class="fixed bottom-0 left-0 w-full flex justify-center items-center px-4 pb-12 pt-4 bg-surface z-40">
+<p class="font-['Newsreader'] text-sm italic text-on-surface-variant text-center max-w-md">
+            Our verification engine uses encrypted peer-reviewed databases and real-time neural analysis to ensure factual integrity.
+        </p>
+</footer>
+</body></html>
